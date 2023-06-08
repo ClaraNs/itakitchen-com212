@@ -154,15 +154,19 @@ def retornaClientePorId(id):
 
 @app.post("/criarcliente")
 def criaCliente(item: dict):
-    now = datetime.now()
-    base64_image = item["foto"]
-    missing_padding = len(base64_image) % 4
-    if missing_padding != 0:
-        base64_image += '=' * (4 - missing_padding)
+    
+    if "foto" in item:
+        base64_image = item["foto"]
+        missing_padding = len(base64_image) % 4
 
-# Decodificar a imagem base64 em bytes
-    foto = base64.urlsafe_b64decode(base64_image)
-    print(item["cpf"])
+        if missing_padding != 0:
+            base64_image += '=' * (4 - missing_padding)
+
+        foto = base64.urlsafe_b64decode(base64_image)
+    else:
+        foto = None
+
+    now = datetime.now()
     dataCriacao = now.strftime("%Y-%m-%d %H:%M:%S")
     
     retorno = alter("INSERT INTO cliente (email, nome, senha, cpf, dataNascimento, foto, tipo, dataeHoraCriacao)"+ 
@@ -223,7 +227,11 @@ def retornaEstabelecimento():
 
     result = []
     for id, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria in retorno:
-        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(bytes(foto)), idendereco, idhorariofunc, idcategoria))
+        if foto is None:
+            foto = ""
+        else:
+            foto = str(bytes(foto))
+        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -235,44 +243,48 @@ def retornaEstabelecimentoPorId(id):
 
     result = []
     for idn, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria in retorno:
-        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(bytes(foto)), idendereco, idhorariofunc, idcategoria))
+        if foto is None:
+            foto = ""
+        else:
+            foto = str(bytes(foto))
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria))
     
     return result
 
 @app.post("/criarestabelecimento")
 def criarEstabelecimento(item: dict):
-    base64_image = item["foto"]
-    missing_padding = len(base64_image) % 4
-    if missing_padding != 0:
-        base64_image += '=' * (4 - missing_padding)
-    # Decodificar a imagem base64 em bytes
-    foto = base64.urlsafe_b64decode(base64_image)
+    # Atributos não obrigatórios
+    if "foto" in item:
+        base64_image = item["foto"]
+        missing_padding = len(base64_image) % 4
 
-    if(foto != None):
-        retorno = alter("CALL inserir_estabelecimento(%s, %s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], foto, item["descricao"],item["rua"], item["numero"], item["complem"], item["bairro"], item["cep"], item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"], item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"], item["hsabadoinicio"], item["hsabadofim"], item["categoria"]))
+        if missing_padding != 0:
+            base64_image += '=' * (4 - missing_padding)
+
+        foto = base64.urlsafe_b64decode(base64_image)
     else:
-        retorno = alter("CALL inserir_estabelecimento(%s, %s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], None, item["descricao"],item["rua"], item["numero"], item["complem"], item["bairro"], item["cep"], item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"], item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"], item["hsabadoinicio"], item["hsabadofim"], item["categoria"]))
+        foto = None
+    
+    if "descricao" in item:
+        descricao = item["descricao"]
+    else:
+        descricao = None
+    
+    if "complem" in item:
+        complemento = item["complem"]
+    else:
+        complemento = None
+
+    retorno = alter("CALL inserir_estabelecimento(%s, %s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], foto, descricao,item["rua"], item["numero"], complemento, item["bairro"], item["cep"], item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"], item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"], item["hsabadoinicio"], item["hsabadofim"], item["categoria"]))
+    
     if(retorno == 'Sucesso'):
         result = 1
     else:
         result = 0
 
     return result
-'''@app.post("/criarestabelecimento")
-def criaEstabelecimento(item: dict):
-    
-    retorno = alter("INSERT INTO estabelecimento (nome, cnpj, email, senha, contato, foto, idendereco, idhorariofunc, idcategoria)"+ 
-                    "VALUES (%s, %s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s)", 
-                    (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], item["foto"], item["idendereco"], item["idhorariofunc"], item["idcategoria"] ))
 
-    if(retorno == 'Sucesso'):
-        result = 1
-    else:
-        result = 0
-    
-    return result'''
 
 @app.delete("/deletaestabelecimento&id={id}")
 def deletaEstabelecimento(id):
@@ -515,17 +527,38 @@ def retornaAvaliacaoPorId(id):
                                       notaPreco, descriPreco, dataeHora))
     return result
 
-
+#Preciso fazer a chamada da procedure
 @app.post("/criaravaliacao")
 def criaAvaliacao(item: dict):
     now = datetime.now()
-    
     dataCriacao = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    if "descrirefeicao" in item:
+        des_refeicao = item["descrirefeicao"]
+    else:
+        des_refeicao = None
     
-    retorno = alter("INSERT INTO avaliacao (idcli, idestab, media, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco, dataehora)"+ 
+    if "descriatendimento" in item:
+        des_atendi = item["descriatendimento"]
+    else:
+        des_atendi = None
+    
+    if "descriambiente" in item:
+        des_amb = item["descriambiente"]
+    else:
+        des_amb = None
+
+    if "descripreco" in item:
+        des_pre = item["descripreco"]
+    else:
+        des_pre = None
+
+    retorno = alter("CALL inserir_avaliacao(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (item["idcli"], item["idestab"], item["notarefeicao"], des_refeicao, item["notaatendimento"], des_atendi, item["notaambiente"], des_amb, item["notapreco"], des_pre, dataCriacao))
+    
+    '''retorno = alter("INSERT INTO avaliacao (idcli, idestab, media, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco, dataehora)"+ 
                     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (item["idcli"], item["idestab"], item["media"], item["notarefeicao"], item["descrirefeicao"], 
-                     item["notaatendimento"], item["descriatendimento"], item["notaambiente"], item["descriambiente"], item["notapreco"], item["descripreco"], dataCriacao))
+                    (item["idcli"], item["idestab"], item["media"], item["notarefeicao"], des_refeicao, item["notaatendimento"], des_atendi, item["notaambiente"], des_amb, item["notapreco"], des_pre, dataCriacao))'''
 
     if(retorno == 'Sucesso'):
         result = 1

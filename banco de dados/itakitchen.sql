@@ -13,11 +13,11 @@ CREATE TABLE cliente (
 
 CREATE TABLE endereco (
   id serial primary key,
-  rua varchar(255),
-  numero int, 
+  rua varchar(255) not null,
+  numero int not null, 
   complem varchar(255),
-  bairro varchar(255),
-  cep char(8)
+  bairro varchar(255) not null,
+  cep char(8) not null
 );
 
 CREATE TABLE horarioFuncionamento (

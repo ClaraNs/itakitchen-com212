@@ -1,0 +1,77 @@
+page-login {
+
+    section {
+        justify-content: center;
+        text-align: center;
+    }
+
+    figure {
+        margin: auto;
+    }
+
+    .logo {
+        width: 80%;
+    }
+
+    p {
+        font-size: 1.4em;
+    }
+}
+
+.back-button {
+    display: none !important;
+}
+
+button.bt-voltar{
+    .button-inner{
+        justify-content: left !important;
+    }
+    margin-left: 10px !important;
+}
+
+.icon-bt-voltar{
+    width: 8%;
+}
+
+ion-item.input {
+    padding-top: 1px;
+    border: 1px solid #b4b4b4;
+    background-color: #fafafa;
+    padding-bottom: 1px;
+    margin: 16px auto;
+    border-radius: 20px;
+    width: 80%;
+}
+
+.btn-login {
+    font-weight: 400;
+    background-color: #F4991A;
+    border-radius: 20px;
+    padding: 25px 5px;
+    width: 80%;
+    font-size: 1.15em;
+}
+
+.icon-btn-login {
+    margin-left: 30%;
+    margin-right: -30%;
+    width: 25px;
+}
+
+div.item-inner {
+    border: none !important;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    box-shadow: none;
+}
+
+input {
+    font-size: 1.2em;
+}
+
+.item-md.item-input.item-input-has-focus .item-inner {
+    border: none;
+    box-shadow: none;
+}

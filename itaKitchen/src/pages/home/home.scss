@@ -1,0 +1,80 @@
+page-home {
+    section {
+        justify-content: center;
+        text-align: center;
+    }
+
+    p {
+        font-size: 1.4em;
+    }
+
+    figure {
+        margin: auto;
+    }
+
+    .logo {
+        width: 100%;
+    }
+}
+
+.home-header {
+    border: none;
+    box-shadow: none;
+    background-color: white;
+
+    .ion-navbar {
+        background-color: transparent;
+    }
+
+    .toolbar-background {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+.home-header.header-md::after {
+    background: none;
+}
+
+
+.texto-laranja {
+    color: #F4991A;
+}
+
+.btn-inicio {
+    font-weight: 400;
+    background-color: #F4991A;
+    border-radius: 20px;
+    padding: 25px 5px;
+    width: 40%;
+    font-size: 1.15em;
+}
+
+.marrom{
+    background-color: #321313;
+}
+
+img.icon-btn {
+    margin-left: 30%;
+    margin-right: -30%;
+    width: 20px;
+}
+
+.icon-btn.login{
+    margin-left: 18%;
+    margin-right: -15%;
+}
+
+.icon-btn.cadastro{
+    margin-left: 8%;
+    margin-right: -3%;
+}
+
+.button-md:hover:not(.disable-hover) {
+    background-color: #F4991A;
+}
+
+.intro {
+    padding: 0 8% 40px 8%;
+}

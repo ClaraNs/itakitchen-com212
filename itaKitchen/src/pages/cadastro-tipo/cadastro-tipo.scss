@@ -1,0 +1,32 @@
+page-cadastro-tipo {
+    section {
+        text-align: center;
+        justify-content: center;
+        position: absolute;
+        top: 30%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+.btn-tipo {
+    font-weight: 400;
+    background-color: #F4991A;
+    border-radius: 20px;
+    padding: 30px 5px;
+    width: 60%;
+    font-size: 1.15em;
+    margin-bottom: 15px;
+}
+
+.icon-btn-login.cliente {
+    margin-left: 25%;
+    margin-right: -21%;
+}
+
+.icon-btn-login.prop {
+    margin-left: 13%;
+    margin-right: -7%;
+}

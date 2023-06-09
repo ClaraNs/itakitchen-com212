@@ -22,15 +22,11 @@ conexao = psycopg2.connect(
     host="localhost",
     database="itakitchen",
     user="postgres",
-    password="postgres")
+    password="lulu")
 
 def ret(query):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = conexao
         except Exception as e:
             raise e
 
@@ -48,11 +44,7 @@ def ret(query):
             
 def retByValue(query, values = None):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = conexao
         except Exception as e:
             raise e
 
@@ -70,11 +62,7 @@ def retByValue(query, values = None):
             
 def alter(query, values):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = conexao
         except Exception as e:
             print(e)
             raise e
@@ -155,7 +143,7 @@ def retornaClientePorId(id):
 @app.post("/criarcliente")
 def criaCliente(item: dict):
     
-    if "foto" in item:
+    if "foto" in item and item["foto"] != None:
         base64_image = item["foto"]
         missing_padding = len(base64_image) % 4
 

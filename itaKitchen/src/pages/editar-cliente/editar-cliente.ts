@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ShareService } from '../share/share';
-import { LoginPage } from '../login/login';
 import { DatePipe } from '@angular/common';
 
 /**
- * Generated class for the CadastroClientePage page.
+ * Generated class for the EditarClientePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,11 +12,10 @@ import { DatePipe } from '@angular/common';
 
 @IonicPage()
 @Component({
-  selector: 'page-cadastro-cliente',
-  templateUrl: 'cadastro-cliente.html',
+  selector: 'page-editar-cliente',
+  templateUrl: 'editar-cliente.html',
 })
-export class CadastroClientePage {
-
+export class EditarClientePage {
 
   tiposCliente: any = [
     { id: 'Morador', descri: 'Morador' },
@@ -26,19 +24,26 @@ export class CadastroClientePage {
   ];
   pipe: any = new DatePipe('en-US');
   email: any;
-  senha: any;
+  senha: any = null;
   nome: any = null;
   cpf: any = null;
   datanas: any = null;
   tipocli: any = null;
   img: any = null;
-  nomearq:any = "Enviar foto de perfil...";
+  nomearq:any = "Nova foto de perfil...";
+  usuarioantigo:any;
+  campos:any = "";
+  valores:any = "";
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
     private share: ShareService) {
-    this.email = this.navParams.get("email");
-    this.senha = this.navParams.get("senha");
+    this.usuarioantigo = this.navParams.get("usuario");
+    this.email = this.usuarioantigo.email;
+    this.nome = this.usuarioantigo.nome;
+    this.cpf = this.usuarioantigo.cpf;
+    this.datanas = this.usuarioantigo.dataNascimento;
+    this.tipocli = this.usuarioantigo.tipo;
 
   }
 
@@ -49,12 +54,14 @@ export class CadastroClientePage {
   }
 
   validacao() {
-    console.log(this.img);
+    this.campos = "";
+    this.valores = "";
     let valido = false;
-
-    if (this.nome != null && this.cpf != null && this.datanas != null && this.tipocli != null) {
+    if(this.cpf != this.usuarioantigo.cpf && this.cpf != null){
+      this.campos += "cpf,";
       let cpfvalida = this.cpf.replaceAll('.', '');
       cpfvalida = cpfvalida.replaceAll('-', '');
+      this.valores += cpfvalida + "!";
       console.log(this.containsOnlyNumbers(cpfvalida));
       if (this.cpf.length == 14 && this.containsOnlyNumbers(cpfvalida) == true) {
         valido = true;
@@ -65,33 +72,63 @@ export class CadastroClientePage {
         });
         toast.present();
       }
-    } else {
-      let toast = this.toastCtrl.create({
-        message: "Preenche todos os campos.",
-        duration: 2000
-      });
-      toast.present();
     }
 
+    if(this.email != this.usuarioantigo.email && this.email != null){
+    
+        if (this.email.includes('@') && this.email.split('@')[1] != '') {
+          this.campos += "email,";
+          this.valores += this.email + "!";
+          valido = true;
+        } else {
+          let toast = this.toastCtrl.create({
+            message: "O e-mail deve conter um '@' e uma parte depois do '@'.",
+            duration: 2000
+          });
+          toast.present();
+        }
+    }
+
+    if(this.nome != this.usuarioantigo.nome){
+      valido = true;
+      this.campos += "nome,";
+      this.valores += this.nome + "!";
+    }
+
+    if(this.datanas != this.usuarioantigo.dataNascimento){
+      valido = true;
+      this.campos += "dataNascimento,";
+      let datanasformat = this.pipe.transform(this.datanas, 'yyyy-MM-dd');
+      this.valores += datanasformat + "!";
+    }
+
+    if(this.tipocli != this.usuarioantigo.tipo){
+      valido = true;
+      this.campos += "tipo,";
+      this.valores += this.tipocli + "!";
+    }
+
+    if(this.img != null){
+      valido = true;
+      this.campos += "foto,";
+      this.valores += this.img + "!";
+    }
+    
     return valido;
   }
 
-  cadastrarCliente() {
+  editarCliente() {
   
     if (this.validacao()) {
-      let cpfvalida = this.cpf.replaceAll('.', '');
-      cpfvalida = cpfvalida.replaceAll('-', '');
-      let datanasformat = this.pipe.transform(this.datanas, 'yyyy-MM-dd');
-      this.share.cadastrarCliente(this.email, this.senha, this.nome,
-        cpfvalida, datanasformat, this.img, this.tipocli).subscribe((data: any) => {
+      this.share.editarCliente(this.usuarioantigo.id, this.campos, this.valores).subscribe((data: any) => {
           console.log(data);
           if (data == 1) {
             let toast = this.toastCtrl.create({
-              message: "Seu cadastro foi concluído!",
+              message: "Os dados foram editados com sucesso!",
               duration: 2000
             });
             toast.present();
-            this.navCtrl.push(LoginPage, {}, { animate: true });
+            this.navCtrl.pop();
           } else {
             let toast = this.toastCtrl.create({
               message: "Algo deu errado, verifique os campos.",
@@ -111,16 +148,10 @@ export class CadastroClientePage {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      //const arrayBuffer = reader.result as ArrayBuffer;
-      //const bytes = new Uint8Array(arrayBuffer);
-      //const bytea = this.arrayBufferToBytea(bytes);
       const base64 = reader.result as string;
       this.img = base64;
-      console.log(this.img);
-      //this.img = bytea;
     };
 
-    //reader.readAsArrayBuffer(file);
     reader.readAsDataURL(file);
   }
 

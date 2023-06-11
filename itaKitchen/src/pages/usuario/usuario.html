@@ -6,8 +6,13 @@
 -->
 <ion-header>
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+     </button>
+    </ion-buttons>
     <ion-buttons right>
-      <button ion-button class="bt-voltar" (click)="sair();">
+      <button ion-button class="bt-sair" (click)="sair();">
         <img src="assets/imgs/icons/sair.png" alt="Sair" class="icon-bt-sair">
       </button>
     </ion-buttons>
@@ -26,40 +31,43 @@
       <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
-    <h1 class="saudacao texto-marrom">Olá, {{usuario.nome}}!</h1>
+    <ion-row>
+      <ion-col col-4>
+        <img [src]="imagemURL" safe class="img-perfil">
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="nome-perfil texto-marrom">{{usuario.nome}}</h2>
+        <h5 class="num-perfil">{{numavaliacoes}} avaliações</h5>
+      </ion-col>
+    </ion-row>
 
-    <ion-row class="bts-inicio">
-      <button col-4 ion-button class="bt-inicio filtrar marrom">
-        Filtrar
-        <img src="assets/imgs/icons/filtro.png" class="icon-bt-inicio filtro" alt="Ícone de filtro.">
+    <ion-row class="bts-usuario">
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarPerfil();">
+        Editar Perfil
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
       </button>
-      <button col-7 ion-button class="bt-inicio laranja">
-        Ordernar por
-        <img src="assets/imgs/icons/ordenar.png" class="icon-bt-inicio" alt="Ícone de ordenar.">
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="confirmaExclusao();">
+        Excluir Perfil
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
       </button>
     </ion-row>
 
-    <div class="estabelecimentos">
-      <div *ngFor="let estab of estabelecimentos">
-        <p>Estabelecimento</p>
-      </div>
-      <div *ngIf="estabelecimentos.length == 0">
-        <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
-      </div>
-    </div>
+    
+
+    
   </section>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar class="tool-tab">
     <ion-row class="row-tabs">
-      <button col-4 class="bt-tab atual">
+      <button col-4 class="bt-tab">
         <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab">
       </button>
       <button col-4 class="bt-tab" (click)="minhasAvaliacoes();">
         <img src="assets/imgs/icons/avaliacao.png" alt="ìcone do início." class="icon-tab">
       </button>
-      <button col-4 class="bt-tab" (click)="acessarPerfil();">
+      <button col-4 class="bt-tab atual" (click)="acessarPerfil();">
         <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab">
       </button>
     </ion-row>

@@ -28,13 +28,15 @@ export class LoginPage {
     this.storage.get('email').then((val) => {
       if (val != null) {
         this.email = val;
+        this.storage.get('senha').then((val) => {
+          if (val != null) {
+            this.senha = val;
+            this.fazerLogin();
+          }
+        });
       }
     });
-    this.storage.get('senha').then((val) => {
-      if (val != null) {
-        this.senha = val;
-      }
-    });
+    
   }
 
   cadastro(){
@@ -47,7 +49,8 @@ export class LoginPage {
       if(this.email.includes('@') && this.email.split('@')[1] != ''){
       this.share.verificaLogin(this.email, this.senha).subscribe((data:any)=>{
         console.log(data);
-        if(data.length != 0){
+        if(data != 0){
+          if(data[0].cpf != undefined){
           let cliente = {
             id: data[0].id, 
             email:  data[0].email, 
@@ -60,6 +63,22 @@ export class LoginPage {
           this.storage.set("email", this.email);
           this.storage.set("senha", this.senha);
           this.navCtrl.push(InicioPage, {cliente: cliente}, {animate: true});
+        }else{
+          let estab = {
+            id: data[0].id, 
+            email:  data[0].email, 
+            nome: data[0].nome, 
+            cnpj: data[0].cnpj, 
+            contato: data[0].contato, 
+            foto: data[0].foto, 
+            categoria: data[0].categoria,
+            endereco: data[0].endereco,
+            horario: data[0].horario
+          };
+          this.storage.set("email", this.email);
+          this.storage.set("senha", this.senha);
+          this.navCtrl.push(InicioPage, {estab: estab}, {animate: true});
+        }
         
         }else{
           let toast = this.toastCtrl.create({

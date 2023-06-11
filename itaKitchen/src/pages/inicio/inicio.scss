@@ -1,3 +1,133 @@
 page-inicio {
+    
 
+    .bt-inicio {
+        border-radius: 40px;
+        max-width: 90%;
+        padding: 20px 0;
+        font-size: 1.1em;
+    }
+
+    .bts-inicio{
+        margin-top: 25px;
+    }
+
+    p.vazio{
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    .bt-inicio.filtrar {
+        margin-right: 20px;
+    }
+
+    img.icon-bt-inicio {
+        width: 12%;
+        margin-left: 12px;
+        margin-right: -3px;
+    }
+
+    .icon-bt-inicio.filtro {
+        margin-left: 8px;
+        margin-right: -3px;
+    }
+
+    ion-navbar {
+        box-shadow: none;
+    }
+    
+    .header-md::after {
+        background: transparent;
+    }
+    
+    .toolbar-background {
+        background-color: transparent;
+    }
+    
+    ion-buttons {
+        width: 18% !important;
+    }
+    
+    ion-title {
+        margin-left: 10px;
+    }
+    
+    h1 {
+        font-size: 1.9em;
+    }
+    
+    .icon-bt-voltar.comum {
+        width: 65%;
+    }
+
+    .icon-bt-sair {
+        width: 65%;
+    }
+
+    .logo {
+        width: 70%;
+    }
+
+    ion-title.inicio-title {
+        text-align: left;
+    }
+}
+
+
+
+ion-fab{
+    bottom: 20px !important;
+    right: 15px !important;
+}
+
+section {
+    margin: 20px 18px;
+}
+
+
+
+ion-title {
+    text-align: center;
+}
+
+
+
+ion-navbar {
+    box-shadow: none;
+}
+
+.header-md::after {
+    background: transparent;
+}
+
+.toolbar-background {
+    background-color: transparent;
+}
+
+.icon-tab {
+    width: 20%;
+}
+
+.bt-tab {
+    background-color: #F4991A;
+    padding: 15px 0px;
+}
+
+.bt-tab.atual {
+    background-color: #321313;
+}
+
+ion-footer .toolbar:last-child {
+    padding: 0 !important;
+}
+
+.tool-tab {
+    padding: 0;
+    margin: 0;
+}
+
+.row-tabs {
+    padding: 0;
+    margin: 0;
+    background-color: #F4991A;
 }

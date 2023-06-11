@@ -16,6 +16,20 @@ page-login {
     p {
         font-size: 1.4em;
     }
+
+    .icon-bt-voltar {
+        width: 60%;
+    }
+
+    ion-buttons{
+        text-align: left;
+    }
+
+    button.bt-voltar {
+        margin-left: 10px !important;
+    }
+
+
 }
 
 .back-button {
@@ -29,9 +43,6 @@ button.bt-voltar{
     margin-left: 10px !important;
 }
 
-.icon-bt-voltar{
-    width: 8%;
-}
 
 ion-item.input {
     padding-top: 1px;

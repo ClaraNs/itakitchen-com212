@@ -37,6 +37,25 @@ export class ShareService {
 
         return this.http.post(url, body).map(res => res);
 
+    }
 
+    retornaNumAvaliacoes(idcli){
+        var url = this.inicioURL + 'numavaliacoescliente&id=' + idcli;
+        return this.http.get(url).map(res => res);
+    }
+
+    excluirUsuario(idcli){
+        var url = this.inicioURL + 'deletacliente&id=' + idcli;
+        return this.http.delete(url).map(res => res);
+    }
+
+    editarCliente(idcli, campos, valores){
+        var url = this.inicioURL + 'atualizacliente&id=' + idcli;
+        var body = {
+            "idcli" : idcli,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
     }
 }

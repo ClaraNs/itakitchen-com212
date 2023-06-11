@@ -19,6 +19,11 @@ import { CadastroHorariosPage } from '../pages/cadastro-horarios/cadastro-horari
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { File } from '@ionic-native/file';
 import { IonicStorageModule } from '@ionic/storage';
+import { UsuarioPage } from '../pages/usuario/usuario';
+import { NovaAvaliacaoPage } from '../pages/nova-avaliacao/nova-avaliacao';
+import { EditarAvaliacaoPage } from '../pages/editar-avaliacao/editar-avaliacao';
+import { MinhasAvaliacoesPage } from '../pages/minhas-avaliacoes/minhas-avaliacoes';
+import { EditarClientePage } from '../pages/editar-cliente/editar-cliente';
 
 
 @NgModule({
@@ -33,6 +38,11 @@ import { IonicStorageModule } from '@ionic/storage';
     CadastroGeralPage,
     CadastroTipoPage,
     CadastroHorariosPage,
+    UsuarioPage,
+    NovaAvaliacaoPage,
+    EditarAvaliacaoPage,
+    MinhasAvaliacoesPage,
+    EditarClientePage,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +63,11 @@ import { IonicStorageModule } from '@ionic/storage';
     CadastroGeralPage,
     CadastroTipoPage,
     CadastroHorariosPage,
+    UsuarioPage,
+    NovaAvaliacaoPage,
+    EditarAvaliacaoPage,
+    MinhasAvaliacoesPage,
+    EditarClientePage,
   ],
   providers: [
     StatusBar,

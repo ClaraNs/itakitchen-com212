@@ -18,15 +18,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-conexao = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="lulu")
+
+conexao = "host='localhost' dbname='itakitchen' user='postgres' password='lulu'"
+
+
 
 def ret(query):
         try:
-            conn = conexao
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             raise e
 
@@ -44,7 +43,7 @@ def ret(query):
             
 def retByValue(query, values = None):
         try:
-            conn = conexao
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             raise e
 
@@ -62,7 +61,7 @@ def retByValue(query, values = None):
             
 def alter(query, values):
         try:
-            conn = conexao
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             print(e)
             raise e
@@ -84,6 +83,15 @@ def alter(query, values):
 
 #Cliente
 
+def bytea_to_base64(bytea):
+    # Converter o objeto bytea para bytes
+    bytes_data = bytes(bytea)
+
+    # Codificar os bytes em uma string base64
+    base64_string = base64.b64encode(bytes_data).decode('utf-8')
+
+    return base64_string
+
 @app.post("/login")
 def fazLogin(item: dict):
     
@@ -97,18 +105,20 @@ def fazLogin(item: dict):
                          (item["email"], item["senha"],))
         for idn, nome, cnpj, email, contato, foto, endereco, horario, categoria in retorno:
             if(foto != None):
-                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(bytes(foto)), endereco, horario, categoria))
+                fotocerta = bytea_to_base64(foto)
+                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), endereco, horario, categoria))
             else:
                 result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, None, endereco, horario, categoria))
     else:
         for idn, email, nome, cpf, datanas, foto, tipo in retorno:
             if(foto != None):
-                result.append(model.Cliente(idn, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+                fotocerta = bytea_to_base64(foto)
+                result.append(model.Cliente(idn, email, nome, cpf, datanas, str(fotocerta), tipo))
             else:
                 result.append(model.Cliente(idn, email, nome, cpf, datanas, None, tipo))
 
     if result == []:
-        return {"message": f"Nenhum usuário cadastrado com o email e senha informado"}
+        return 0
     else:
         return result
 
@@ -144,13 +154,16 @@ def retornaClientePorId(id):
 def criaCliente(item: dict):
     
     if "foto" in item and item["foto"] != None:
-        base64_image = item["foto"]
-        missing_padding = len(base64_image) % 4
+        base64_string = ''
+        if item["foto"].startswith('data:image'):
+            base64_string = item["foto"].split(',', 1)[1]
 
-        if missing_padding != 0:
-            base64_image += '=' * (4 - missing_padding)
+        # Decodificar a string base64 em bytes
+        decoded_bytes = base64.b64decode(base64_string)
 
-        foto = base64.urlsafe_b64decode(base64_image)
+        # Converter os bytes para o tipo de dados bytearray
+        bytea = bytearray(decoded_bytes)
+        foto = bytea
     else:
         foto = None
 
@@ -183,12 +196,31 @@ def deletaCliente(id):
 def atualizaCliente(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split("!")
+    valores.pop()
+    valores = tuple(valores)
+    
+    if("foto" in campos):
+        indice = campos.index("foto")
+        
+        base64_string = ''
+        if valores[indice].startswith('data:image'):
+            base64_string = valores[indice].split(',', 1)[1]
+
+        # Decodificar a string base64 em bytes
+        decoded_bytes = base64.b64decode(base64_string)
+
+        # Converter os bytes para o tipo de dados bytearray
+        bytea = bytearray(decoded_bytes)
+        valores[indice] = str(bytea)
+    
     
     stratt = ""
     for i in range(len(campos)):
-        if(stratt != ""):
+        if(stratt != ''):
             stratt += ", " + campos[i] + " = %s"
         else:
             stratt += campos[i] + " = %s"
@@ -202,6 +234,17 @@ def atualizaCliente(id, campos, valores):
         result = 1
     else:
         result = 0
+    
+    return result
+
+@app.get("/numavaliacoescliente&id={id}")
+def retornaNumAvaliacoes(id):
+    
+    retorno = retByValue("SELECT count(*) FROM avaliacao as a WHERE a.idcli = %s", (id,))
+
+    result = []
+    for valor in retorno:
+        result.append(valor)
     
     return result
 

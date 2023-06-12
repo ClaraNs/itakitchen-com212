@@ -20,7 +20,7 @@
 
 <ion-content padding>
 
-  <section>
+  <section *ngIf="clienteOuEstab == 0">
 
     <ion-fab right bottom >
       <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
@@ -40,17 +40,31 @@
     </ion-row>
 
     <div class="estabelecimentos">
-      <div *ngFor="let estab of estabelecimentos">
-        <p>Estabelecimento</p>
-      </div>
+      <ion-row *ngFor="let estab of estabelecimentos">
+        <ion-col col-4>
+          <img [src]="estab.url" safe class="img-perfil">
+        </ion-col>
+        <ion-col col-6>
+          <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
+          
+          <h5 class="num-perfil num-avaliacao">
+            <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela"> 
+           {{estab.nota}} • {{estab.numavaliacoes}} avaliações</h5>
+        </ion-col>
+      </ion-row>
       <div *ngIf="estabelecimentos.length == 0">
         <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
       </div>
     </div>
   </section>
+
+  <section *ngIf="clienteOuEstab == 1">
+    <h1 class="saudacao texto-marrom">Bem-vindo ao perfil de {{usuario.nome}}!</h1>
+
+  </section>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="clienteOuEstab == 0">
   <ion-toolbar class="tool-tab">
     <ion-row class="row-tabs">
       <button col-4 class="bt-tab atual">
@@ -61,6 +75,19 @@
       </button>
       <button col-4 class="bt-tab" (click)="acessarPerfil();">
         <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab">
+      </button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="clienteOuEstab == 1">
+  <ion-toolbar class="tool-tab">
+    <ion-row class="row-tabs">
+      <button col-6 class="bt-tab atual">
+        <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab-e">
+      </button>
+      <button col-6 class="bt-tab" (click)="acessarPerfil();">
+        <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab-e">
       </button>
     </ion-row>
   </ion-toolbar>

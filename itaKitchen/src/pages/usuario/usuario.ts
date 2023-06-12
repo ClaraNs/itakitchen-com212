@@ -19,32 +19,46 @@ export class UsuarioPage {
 
   usuario: any = null;
   imagemURL: any = null;
-  numavaliacoes:any = 0;
+  numavaliacoes: any = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private share:ShareService,
-    private alertCtrl:AlertController, private toastCtrl: ToastController, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private share: ShareService,
+    private alertCtrl: AlertController, private toastCtrl: ToastController, public storage: Storage) {
     this.usuario = this.navParams.get("usuario");
-    this.imagemURL = 'data:image/jpeg;base64,' + this.usuario.foto;
+    this.imagemURL = 'data:image/png;base64,' + this.usuario.foto;
     this.retornaNumAvaliacoes();
   }
 
 
-  editarPerfil(){
-    this.navCtrl.push(EditarClientePage, {usuario: this.usuario}, {animate: true});
+  editarPerfil() {
+    if (this.usuario.cpf != undefined) {
+      this.navCtrl.push(EditarClientePage, { usuario: this.usuario }, { animate: true });
+    } else {
+
+    }
   }
 
   retornaNumAvaliacoes() {
-    this.share.retornaNumAvaliacoes(this.usuario.id).subscribe((data:any)=>{
-      this.numavaliacoes = data[0];
-    });
+    if (this.usuario.cpf != undefined) {
+      this.share.retornaNumAvaliacoes(this.usuario.id).subscribe((data: any) => {
+        this.numavaliacoes = data[0];
+      });
+    } else {
+      this.share.retornaNumAvaliacoesPorEstab(this.usuario.id).subscribe((data: any) => {
+        this.numavaliacoes = data[0][0];
+      });
+    }
   }
 
-  sair(){
+  sair() {
     this.navCtrl.pop();
     this.navCtrl.pop();
   }
 
-   confirmaExclusao() {
+  inicio() {
+    this.navCtrl.pop();
+  }
+
+  confirmaExclusao() {
     const confirm = this.alertCtrl.create({
       title: 'Excluir Usuário',
       message: 'Deseja mesmo excluir seu cadastro? Ficamos tristes com sua partida...',
@@ -52,7 +66,7 @@ export class UsuarioPage {
         {
           text: 'Não',
           handler: () => {
-            
+
           }
         },
         {
@@ -67,19 +81,34 @@ export class UsuarioPage {
   }
 
   deletaUsuario() {
-    this.share.excluirUsuario(this.usuario.id).subscribe(async (data:any)=>{
-      if(data == 1){
-        let toast = this.toastCtrl.create({
-          message: "Usuário deletado com sucesso!",
-          duration: 2000
-        });
-        toast.present();
-        await this.storage.clear();
-        this.sair();
-        
-      }
-    });
-  }
+    if (this.usuario.cpf != undefined) {
+      this.share.excluirUsuario(this.usuario.id).subscribe(async (data: any) => {
+        if (data == 1) {
+          let toast = this.toastCtrl.create({
+            message: "Usuário deletado com sucesso!",
+            duration: 2000
+          });
+          toast.present();
+          await this.storage.clear();
+          this.sair();
 
+        }
+      });
+
+    } else {
+      this.share.excluirEstab(this.usuario.id).subscribe(async (data: any) => {
+        if (data == 1) {
+          let toast = this.toastCtrl.create({
+            message: "Usuário deletado com sucesso!",
+            duration: 2000
+          });
+          toast.present();
+          await this.storage.clear();
+          this.sair();
+
+        }
+      });
+    }
+  }
 
 }

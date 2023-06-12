@@ -35,6 +35,12 @@
         <ion-input placeholder="Senha" type="password" [(ngModel)]="senha" name="senha"></ion-input>
       </ion-item>
 
+      <ion-item class="check-conectado">
+        <ion-label>Manter conectado.</ion-label>
+        <ion-checkbox checked="false" name="conectado" id="conectado"
+         [(ngModel)]="conectado" (ngModelChange)="atualizaConectado();"></ion-checkbox>
+      </ion-item>
+
         <p class="texto-laranja">Esqueci minha senha...</p>
 
       <button ion-button class="btn-login" (click)="fazerLogin();">

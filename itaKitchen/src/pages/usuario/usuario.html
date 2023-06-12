@@ -27,7 +27,7 @@
 
   <section>
 
-    <ion-fab right bottom >
+    <ion-fab right bottom  *ngIf="usuario.cpf != undefined">
       <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
@@ -58,17 +58,30 @@
   </section>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="usuario.cpf != undefined">
   <ion-toolbar class="tool-tab">
     <ion-row class="row-tabs">
-      <button col-4 class="bt-tab">
+      <button col-4 class="bt-tab" (click)="inicio();">
         <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab">
       </button>
       <button col-4 class="bt-tab" (click)="minhasAvaliacoes();">
         <img src="assets/imgs/icons/avaliacao.png" alt="ìcone do início." class="icon-tab">
       </button>
-      <button col-4 class="bt-tab atual" (click)="acessarPerfil();">
+      <button col-4 class="bt-tab atual">
         <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab">
+      </button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="usuario.cnpj != undefined">
+  <ion-toolbar class="tool-tab">
+    <ion-row class="row-tabs">
+      <button col-6 class="bt-tab" (click)="inicio()">
+        <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab-e">
+      </button>
+      <button col-6 class="bt-tab atual">
+        <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab-e">
       </button>
     </ion-row>
   </ion-toolbar>

@@ -29,6 +29,10 @@ page-login {
         margin-left: 10px !important;
     }
 
+    ion-checkbox{
+        margin: 9px 18px 9px 4px !important;
+    }
+
 
 }
 
@@ -62,6 +66,13 @@ ion-item.input {
     width: 80%;
     font-size: 1.15em;
 }
+
+.check-conectado{
+    margin: 0 17%;
+    font-size: 1.2em;
+}
+
+
 
 .icon-btn-login {
     margin-left: 30%;

@@ -1,15 +1,55 @@
 <!--
-  Generated template for the CadastroEstabelecimentoSegundoPage page.
+  Generated template for the LoginPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header class="home-header">
   <ion-navbar>
-    <ion-title>cadastroEstabelecimentoSegundo</ion-title>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+      </button>
+    </ion-buttons>
+    <ion-title>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <section>
+    <h2>Agora sobre o local...</h2>
 
+    <ion-item class="input">
+      <ion-label color="primary" hidden>CEP</ion-label>
+      <ion-input placeholder="CEP" type="text" [(ngModel)]="cep" name="cep"
+        [brmasker]="{mask:'00000-000', len:9, type:'num'}" (ngModelChange)="verificaCep();"></ion-input>
+    </ion-item>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Rua</ion-label>
+      <ion-input placeholder="Rua" type="text" [(ngModel)]="rua" name="rua"></ion-input>
+    </ion-item>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Bairro</ion-label>
+      <ion-input placeholder="Bairro" type="text" [(ngModel)]="bairro" name="bairro"></ion-input>
+    </ion-item>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Número</ion-label>
+      <ion-input placeholder="Número" type="number" [(ngModel)]="numero" name="numero"></ion-input>
+    </ion-item>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Complemento</ion-label>
+      <ion-input placeholder="Complemento" type="text" [(ngModel)]="complemento" name="complemento"></ion-input>
+    </ion-item>
+
+    <button ion-button class="btn-login" (click)="cadastrarEstabelecimento();">
+      Próximo <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login">
+    </button>
+
+
+  </section>
 </ion-content>

@@ -180,6 +180,7 @@ CREATE TRIGGER tr_excluir_cliente
 /*SELECT * FROM estabelecimento
 SELECT * FROM avaliacao
 SELECT * FROM horariofuncionamento
+SELECT * FROM cliente
 SELECT e.nome, c.id, c.descricao FROM estabelecimento e JOIN categoria c ON e.idcategoria = c.id
 
 SELECT (notarefeicao + notaatendimento + notaambiente + notapreco)/4 FROM avaliacao;

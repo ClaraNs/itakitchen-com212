@@ -148,7 +148,10 @@ def retornaClientePorId(id):
 
     result = []
     for idn, email, nome, cpf, datanas, foto, tipo in retorno:
-        result.append(model.Cliente(idn, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+        if(foto != None):
+            result.append(model.Cliente(id, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+        else:
+            result.append(model.Cliente(id, email, nome, cpf, datanas, None, tipo))
     
     return result
 
@@ -222,32 +225,37 @@ def atualizaCliente(id, campos, valores):
 def retornaEstabelecimento():
     
     
-    retorno = ret("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, " +
+    retorno = ret("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao," +
                   "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e")
 
     result = []
-    for id, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria in retorno:
+    for id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
         if foto is None:
             foto = ""
         else:
             foto = str(bytes(foto))
-        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria))
+
+        if "descricao" == None:
+            descricao = ""
+
+        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
 
 @app.get("/estabelecimento&id={id}")
 def retornaEstabelecimentoPorId(id):
     
-    retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, " +
+    retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, " +
                   "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e WHERE e.id = %s", (id,))
 
     result = []
-    for idn, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria in retorno:
+    for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
         if foto is None:
             foto = ""
         else:
             foto = str(bytes(foto))
-        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, foto, idendereco, idhorariofunc, idcategoria))
+        
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -350,7 +358,7 @@ def retornaEnderecoPorId(id):
 
 
 
-@app.post("/criarendereco")
+'''@app.post("/criarendereco")
 def criaEndereco(item: dict):
     
     retorno = alter("INSERT INTO endereco (rua, numero, complem, bairro, cep)"+ 
@@ -373,7 +381,7 @@ def deletaEndereco(id):
     else:
         result = 0
     
-    return result
+    return result'''
 
 @app.put("/atualizaendereco&id={id}&campos={campos}&valores={valores}")
 def atualizaEndereco(id, campos, valores):
@@ -406,9 +414,9 @@ def atualizaEndereco(id, campos, valores):
 def retornaHorario():
     
     
-    retorno = ret("SELECT h.id, h.hdomingoinicio, h.hdomingofim, h.hsegundainicio, h.hsegundafim " + 
-                      "SELECT h.htercainicio, h.htercafim, h.hquartainicio, h.hquartafim " + 
-                      "SELECT h.hquintainicio, h.hquintafim, h.hsextainicio, h.hsextafim " + 
+    retorno = ret("SELECT h.id, h.hdomingoinicio, h.hdomingofim, h.hsegundainicio, h.hsegundafim, " + 
+                      "h.htercainicio, h.htercafim, h.hquartainicio, h.hquartafim, " + 
+                      "h.hquintainicio, h.hquintafim, h.hsextainicio, h.hsextafim, " + 
                       "h.hsabadoinicio, h.hsabadofim FROM horariofuncionamento as h")
     
     result = []
@@ -420,9 +428,9 @@ def retornaHorario():
 @app.get("/horario&id={id}")
 def retornaHorarioPorId(id):
     
-    retorno = retByValue("SELECT h.id, h.hdomingoinicio, h.hdomingofim, h.hsegundainicio, h.hsegundafim " + 
-                      "SELECT h.htercainicio, h.htercafim, h.hquartainicio, h.hquartafim " + 
-                      "SELECT h.hquintainicio, h.hquintafim, h.hsextainicio, h.hsextafim " + 
+    retorno = retByValue("SELECT h.id, h.hdomingoinicio, h.hdomingofim, h.hsegundainicio, h.hsegundafim, " + 
+                      "h.htercainicio, h.htercafim, h.hquartainicio, h.hquartafim, " + 
+                      "h.hquintainicio, h.hquintafim, h.hsextainicio, h.hsextafim, " + 
                       "h.hsabadoinicio, h.hsabadofim FROM horariofuncionamento as h WHERE h.id = %s", (id,))
 
     result = []
@@ -432,8 +440,7 @@ def retornaHorarioPorId(id):
     return result
 
 
-
-@app.post("/criarhorario")
+'''@app.post("/criarhorario")
 def criaHorario(item: dict):
     
     retorno = alter("INSERT INTO horariofuncionamento (hDomingoInicio, hDomingoFim, hSegundaInicio, " +
@@ -462,7 +469,7 @@ def deletaHorario(id):
     else:
         result = 0
     
-    return result
+    return result'''
 
 @app.put("/atualizahorario&id={id}&campos={campos}&valores={valores}")
 def atualizaHorario(id, campos, valores):
@@ -514,15 +521,15 @@ def retornaAvaliacao():
 def retornaAvaliacaoPorId(id):
     
     retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
-                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE c.id = %s", (id,))
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.id = %s", (id,))
 
     result = []
-    for (idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+    for (id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
                  notaAtendimento, descriAtendimento,
                  notaAmbiente, descriAmbiente,
                  notaPreco, descriPreco,
                  dataeHora) in retorno:
-        result.append(model.Avaliacao(idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+        result.append(model.Avaliacao(id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
                                       notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
                                       notaPreco, descriPreco, dataeHora))
     return result
@@ -618,7 +625,7 @@ def retornaCategoria():
     
     return result
 
-@app.get("/avaliacao&id={id}")
+@app.get("/categoria&id={id}")
 def retornaAvaliacaoPorId(id):
     
     retorno = retByValue("SELECT c.id, c.descricao FROM categoria as c WHERE c.id = %s", (id,))

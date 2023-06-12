@@ -42,13 +42,14 @@ class Categoria:
         self.descricao = descricao
     
 class Estabelecimento:
-    def __init__(self, id, nome, cnpj, email, contato, foto, idEndereco, idHorario, idCategoria):
+    def __init__(self, id, nome, cnpj, email, contato, foto, descricao, idEndereco, idHorario, idCategoria):
         self.id = id
         self.nome = nome
         self.cnpj = cnpj
         self.email = email
         self.contato = contato
         self.foto = foto
+        self.descricao = descricao
         self.idEndereco = idEndereco
         self.idHorario = idHorario
         self.idCategoria = idCategoria

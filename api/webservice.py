@@ -113,16 +113,17 @@ def fazLogin(item: dict):
     
     # Nao existe cliente com aquele email, tenta estabelecimento
     if retorno == []:
-        retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.idEndereco, e.idHorarioFunc, e.idCategoria FROM estabelecimento as e WHERE e.email = %s AND e.senha = crypt(%s, e.senha)",
+        retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, e.idEndereco, e.idHorarioFunc, e.idCategoria FROM estabelecimento as e WHERE e.email = %s AND e.senha = crypt(%s, e.senha)",
                          (item["email"], item["senha"],))
-        for idn, nome, cnpj, email, contato, foto, endereco, horario, categoria in retorno:
-            
+        for idn, nome, cnpj, email, contato, foto, descricao, endereco, horario, categoria in retorno:
+            if descricao == None:
+                descricao = ""
             if(foto != None):
                 fotocerta = bytea_to_base64(foto)
                 print(foto)
-                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), endereco, horario, categoria))
+                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), descricao, endereco, horario, categoria))
             else:
-                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, None, endereco, horario, categoria))
+                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, None, descricao, endereco, horario, categoria))
     else:
         for idn, email, nome, cpf, datanas, foto, tipo in retorno:
             if(foto != None):
@@ -275,7 +276,7 @@ def retornaEstabelecimento():
         if "descricao" == None:
             descricao = ""
             
-        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(fotocerta), idendereco, idhorariofunc, idcategoria))
+        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -291,7 +292,7 @@ def retornaEstabelecimentoPorId(id):
             fotocerta = ""
         else:
             fotocerta = bytea_to_base64(foto)
-        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), idendereco, idhorariofunc, idcategoria))
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -395,8 +396,6 @@ def retornaEnderecoPorId(id):
         result.append(model.Endereco(idn, rua, numero, complem, bairro, cep))
     
     return result
-
-
 
 '''@app.post("/criarendereco")
 def criaEndereco(item: dict):
@@ -604,7 +603,6 @@ def retornaNotaENumAvaliacoesPorEstab(id):
                                       notaPreco, descriPreco, dataeHora))
     return result
 
-#Preciso fazer a chamada da procedure
 @app.post("/criaravaliacao")
 def criaAvaliacao(item: dict):
     now = datetime.now()

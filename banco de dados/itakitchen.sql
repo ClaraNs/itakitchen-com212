@@ -127,7 +127,7 @@ CREATE OR REPLACE FUNCTION excluir_estabelecimento_trigger()
     RETURNS TRIGGER AS $$
 BEGIN
     -- Excluir horário de funcionamento
-    DELETE FROM horariofuncionamento WHERE id = OLD.idhorariofunc;
+    DELETE FROM horariofuncionamento WHERE id = OLD.idHorarioFunc;
   
     -- Excluir endereço
     DELETE FROM endereco WHERE id = OLD.idendereco;
@@ -175,6 +175,28 @@ CREATE TRIGGER tr_excluir_cliente
     BEFORE DELETE ON cliente
     FOR EACH ROW
     EXECUTE FUNCTION excluir_cliente_trigger();
+
+/*Avaliação*/
+
+CREATE OR REPLACE FUNCTION calcula_media()
+    RETURNS TRIGGER AS $$
+DECLARE
+    media_a DECIMAL;	
+BEGIN
+    -- Calcular Média
+	NEW.media := (NEW.notarefeicao + NEW.notaatendimento + NEW.notaambiente +NEW.notapreco) / 4.0;
+	/*SELECT SUM(notarefeicao, notaatendimento, notaambiente, notapreco)/4 INTO media_a;
+	UPDATE avaliacao SET media = media_a WHERE id = */
+  
+    -- Retornar o resultado do gatilho
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tr_atualiza_media
+    BEFORE UPDATE OF notarefeicao, notaatendimento, notaambiente, notapreco ON avaliacao
+    FOR EACH ROW
+    EXECUTE FUNCTION calcula_media();
 
 -- Consultar
 /*SELECT * FROM estabelecimento

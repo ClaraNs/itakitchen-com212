@@ -1,0 +1,128 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="home-header">
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+      </button>
+    </ion-buttons>
+    <ion-title>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <section>
+    <h2>Por fim, insira o horário de funcionamento...</h2>
+
+
+    <h5 class="texto-marrom dias" col-12>Domingo</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hdomingoinicio" name="hdomingoinicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hdomingofim" name="hdomingofim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Segunda-feira</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hsegundainicio" name="hsegundainicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hsegundafim" name="hsegundafim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Terça-feira</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="htercainicio" name="htercainicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="htercafim" name="htercafim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Quarta-feira</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hquartainicio" name="hquartainicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hquartafim" name="hquartafim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Quinta-feira</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hquintainicio" name="hquintainicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hquintafim" name="hquintafim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Sexta-feira</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hsextainicio" name="hsextainicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hsextafim" name="hsextafim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <h5 class="texto-marrom dias" col-12>Sábado</h5>
+    <ion-row>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Abre ás..</ion-label>
+        <ion-input placeholder="Abre às..." type="text" [(ngModel)]="hsabadoinicio" name="hsabadoinicio"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+      <ion-item class="input" col-4>
+        <ion-label color="primary" hidden>Fecha ás..</ion-label>
+        <ion-input placeholder="Fecha às..." type="text" [(ngModel)]="hsabadofim" name="hsabadofim"
+          [brmasker]="{mask: '00:00', len:5, type:'num'}"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <button ion-button class="btn-login" (click)="finalizar();">
+      Finalizar <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login">
+    </button>
+
+
+  </section>
+</ion-content>

@@ -1,0 +1,81 @@
+page-usuario {
+    
+}
+
+ion-navbar {
+    box-shadow: none;
+}
+
+.header-md::after {
+    background: transparent;
+}
+
+.toolbar-background {
+    background-color: transparent;
+}
+
+ion-buttons {
+    width: 18% !important;
+    text-align: center;
+}
+
+
+h1 {
+    font-size: 1.9em;
+}
+
+.icon-bt-voltar {
+    width: 70%;
+}
+
+ion-title.inicio-title {
+    text-align: center;
+}
+
+.logo {
+    width: 100%;
+    margin-right: 14px;
+}
+
+button.bt-voltar {
+    margin-left: 20px !important;
+}
+
+.bt-usuario{
+    padding: 25px 0;
+    border-radius: 20px;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+button, .button-md{
+    box-shadow: none;
+}
+.icon-bt-sair {
+    width: 50%;
+}
+
+.bts-usuario{
+    margin-top: 20px;
+}
+
+.icon-bt{
+    margin-left: 19%;
+    margin-right: -24%;
+}
+
+.img-perfil{
+    border-radius: 20px;
+}
+
+h2.nome-perfil, h5.num-perfil{
+    margin: 5px 0 0 10px;
+}
+
+h2.nome-perfil{
+    margin-top: 15px !important;
+}
+
+.num-perfil{
+    color: #484848;
+}

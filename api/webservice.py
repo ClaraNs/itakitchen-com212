@@ -18,19 +18,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-conexao = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+
+conexao = "host='localhost' dbname='itakitchen' user='postgres' password='postgres'"
+
+
+def image_to_base64(image_path):
+    with open(image_path, "rb") as image_file:
+        image_data = image_file.read()
+        base64_data = base64.b64encode(image_data)
+        base64_string = base64_data.decode("utf-8")
+        return base64_string
+
+image_path = "padrao.png"
+img_padrao_estab = image_to_base64(image_path)
+image_path = "padraocliente.png"
+img_padrao_cliente = image_to_base64(image_path)
+
 
 def ret(query):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             raise e
 
@@ -48,11 +55,7 @@ def ret(query):
             
 def retByValue(query, values = None):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             raise e
 
@@ -70,11 +73,7 @@ def retByValue(query, values = None):
             
 def alter(query, values):
         try:
-            conn = psycopg2.connect(
-    host="localhost",
-    database="itakitchen",
-    user="postgres",
-    password="postgres")
+            conn = psycopg2.connect(conexao)
         except Exception as e:
             print(e)
             raise e
@@ -96,6 +95,15 @@ def alter(query, values):
 
 #Cliente
 
+def bytea_to_base64(bytea):
+    # Converter o objeto bytea para bytes
+    bytes_data = bytes(bytea)
+
+    # Codificar os bytes em uma string base64
+    base64_string = base64.b64encode(bytes_data).decode('utf-8')
+
+    return base64_string
+
 @app.post("/login")
 def fazLogin(item: dict):
     
@@ -108,19 +116,23 @@ def fazLogin(item: dict):
         retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.idEndereco, e.idHorarioFunc, e.idCategoria FROM estabelecimento as e WHERE e.email = %s AND e.senha = crypt(%s, e.senha)",
                          (item["email"], item["senha"],))
         for idn, nome, cnpj, email, contato, foto, endereco, horario, categoria in retorno:
+            
             if(foto != None):
-                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(bytes(foto)), endereco, horario, categoria))
+                fotocerta = bytea_to_base64(foto)
+                print(foto)
+                result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), endereco, horario, categoria))
             else:
                 result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, None, endereco, horario, categoria))
     else:
         for idn, email, nome, cpf, datanas, foto, tipo in retorno:
             if(foto != None):
-                result.append(model.Cliente(idn, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+                fotocerta = bytea_to_base64(foto)
+                result.append(model.Cliente(idn, email, nome, cpf, datanas, str(fotocerta), tipo))
             else:
                 result.append(model.Cliente(idn, email, nome, cpf, datanas, None, tipo))
 
     if result == []:
-        return {"message": f"Nenhum usuário cadastrado com o email e senha informado"}
+        return 0
     else:
         return result
 
@@ -135,7 +147,8 @@ def retornaCliente():
     for id, email, nome, cpf, datanas, foto, tipo in retorno:
         print(foto)
         if(foto != None):
-            result.append(model.Cliente(id, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+            fotocerta = bytea_to_base64(foto)
+            result.append(model.Cliente(id, email, nome, cpf, datanas, str(fotocerta), tipo))
         else:
             result.append(model.Cliente(id, email, nome, cpf, datanas, None, tipo))
     
@@ -149,7 +162,8 @@ def retornaClientePorId(id):
     result = []
     for idn, email, nome, cpf, datanas, foto, tipo in retorno:
         if(foto != None):
-            result.append(model.Cliente(id, email, nome, cpf, datanas, str(bytes(foto)), tipo))
+            fotocerta = bytea_to_base64(foto)
+            result.append(model.Cliente(idn, email, nome, cpf, datanas, str(fotocerta), tipo))
         else:
             result.append(model.Cliente(id, email, nome, cpf, datanas, None, tipo))
     
@@ -158,16 +172,23 @@ def retornaClientePorId(id):
 @app.post("/criarcliente")
 def criaCliente(item: dict):
     
-    if "foto" in item:
-        base64_image = item["foto"]
-        missing_padding = len(base64_image) % 4
+    prefoto = img_padrao_cliente
+    if "foto" in item and item["foto"] != None:
+        prefoto = item["foto"]
+        
+    
+    base64_string = prefoto
+    if prefoto.startswith('data:image'):
+        base64_string = prefoto.split(',', 1)[1]
 
-        if missing_padding != 0:
-            base64_image += '=' * (4 - missing_padding)
+    # Decodificar a string base64 em bytes
+    decoded_bytes = base64.b64decode(base64_string)
 
-        foto = base64.urlsafe_b64decode(base64_image)
-    else:
-        foto = None
+    # Converter os bytes para o tipo de dados bytearray
+    bytea = bytearray(decoded_bytes)
+    foto = bytea
+    
+    print(foto)
 
     now = datetime.now()
     dataCriacao = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -198,12 +219,17 @@ def deletaCliente(id):
 def atualizaCliente(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split("!")
+    valores.pop()
+    valores = tuple(valores)
+    
     
     stratt = ""
     for i in range(len(campos)):
-        if(stratt != ""):
+        if(stratt != ''):
             stratt += ", " + campos[i] + " = %s"
         else:
             stratt += campos[i] + " = %s"
@@ -220,6 +246,17 @@ def atualizaCliente(id, campos, valores):
     
     return result
 
+@app.get("/numavaliacoescliente&id={id}")
+def retornaNumAvaliacoes(id):
+    
+    retorno = retByValue("SELECT count(*) FROM avaliacao as a WHERE a.idcli = %s", (id,))
+
+    result = []
+    for valor in retorno:
+        result.append(valor)
+    
+    return result
+
 #Estabelecimento 
 @app.get("/estabelecimento")
 def retornaEstabelecimento():
@@ -231,14 +268,14 @@ def retornaEstabelecimento():
     result = []
     for id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
         if foto is None:
-            foto = ""
+            fotocerta = ""
         else:
-            foto = str(bytes(foto))
+            fotocerta = bytea_to_base64(foto)
 
         if "descricao" == None:
             descricao = ""
-
-        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria))
+            
+        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(fotocerta), idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -251,27 +288,30 @@ def retornaEstabelecimentoPorId(id):
     result = []
     for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
         if foto is None:
-            foto = ""
+            fotocerta = ""
         else:
-            foto = str(bytes(foto))
-        
-        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria))
+            fotocerta = bytea_to_base64(foto)
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), idendereco, idhorariofunc, idcategoria))
     
     return result
 
 @app.post("/criarestabelecimento")
 def criarEstabelecimento(item: dict):
     # Atributos não obrigatórios
-    if "foto" in item:
-        base64_image = item["foto"]
-        missing_padding = len(base64_image) % 4
+    prefoto = img_padrao_estab
+    if "foto" in item and item["foto"] != None:
+        prefoto = item["foto"]
+        
+    base64_string = prefoto
+    if prefoto.startswith('data:image'):
+        base64_string = prefoto.split(',', 1)[1]
 
-        if missing_padding != 0:
-            base64_image += '=' * (4 - missing_padding)
+    # Decodificar a string base64 em bytes
+    decoded_bytes = base64.b64decode(base64_string)
 
-        foto = base64.urlsafe_b64decode(base64_image)
-    else:
-        foto = None
+    # Converter os bytes para o tipo de dados bytearray
+    bytea = bytearray(decoded_bytes)
+    foto = bytea
     
     if "descricao" in item:
         descricao = item["descricao"]
@@ -284,7 +324,7 @@ def criarEstabelecimento(item: dict):
         complemento = None
 
     retorno = alter("CALL inserir_estabelecimento(%s, %s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], foto, descricao,item["rua"], item["numero"], complemento, item["bairro"], item["cep"], item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"], item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"], item["hsabadoinicio"], item["hsabadofim"], item["categoria"]))
+                (item["nome"], item["cnpj"], item["email"], item["senha"], item["contato"], foto, descricao, item["rua"], item["numero"], complemento, item["bairro"], item["cep"], item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"], item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"], item["hsabadoinicio"], item["hsabadofim"], item["categoria"]))
     
     if(retorno == 'Sucesso'):
         result = 1
@@ -534,6 +574,36 @@ def retornaAvaliacaoPorId(id):
                                       notaPreco, descriPreco, dataeHora))
     return result
 
+@app.get("/numavaliacaoporestab&id={id}")
+def retornaNotaENumAvaliacoesPorEstab(id):
+    
+    retorno = retByValue("SELECT COUNT(*), AVG(a.media) FROM avaliacao as a WHERE a.idestab = %s", (id,))
+
+    result = []
+    for num, media in retorno:
+        if(media == None):
+            result.append([num, 0])
+        else:
+            result.append([num, media])
+    return result
+
+@app.get("/avaliacaoporestab&id={id}")
+def retornaNotaENumAvaliacoesPorEstab(id):
+    
+    retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE c.idestab = %s", (id,))
+
+    result = []
+    for (idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+                 notaAtendimento, descriAtendimento,
+                 notaAmbiente, descriAmbiente,
+                 notaPreco, descriPreco,
+                 dataeHora) in retorno:
+        result.append(model.Avaliacao(idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+                                      notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
+                                      notaPreco, descriPreco, dataeHora))
+    return result
+
 #Preciso fazer a chamada da procedure
 @app.post("/criaravaliacao")
 def criaAvaliacao(item: dict):
@@ -563,16 +633,13 @@ def criaAvaliacao(item: dict):
     retorno = alter("CALL inserir_avaliacao(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (item["idcli"], item["idestab"], item["notarefeicao"], des_refeicao, item["notaatendimento"], des_atendi, item["notaambiente"], des_amb, item["notapreco"], des_pre, dataCriacao))
     
-    '''retorno = alter("INSERT INTO avaliacao (idcli, idestab, media, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco, dataehora)"+ 
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (item["idcli"], item["idestab"], item["media"], item["notarefeicao"], des_refeicao, item["notaatendimento"], des_atendi, item["notaambiente"], des_amb, item["notapreco"], des_pre, dataCriacao))'''
-
     if(retorno == 'Sucesso'):
         result = 1
     else:
         result = 0
     
     return result
+
 
 @app.delete("/deletaavaliacao&id={id}")
 def deletaAvaliacao(id):
@@ -617,7 +684,7 @@ def atualizaAvaliacao(id, campos, valores):
 def retornaCategoria():
     
     
-    retorno = ret("SELECT c.id, c.descricao FROM categoria as c")
+    retorno = ret("SELECT c.id, c.descricao FROM categoria as c ORDER BY c.descricao")
 
     result = []
     for (id, descricao) in retorno:

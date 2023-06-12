@@ -1,0 +1,35 @@
+<ion-header class="home-header">
+  <ion-navbar>
+    <ion-title>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <section>
+    <figure>
+      <img src="assets/imgs/logo-geral.svg" alt="Logo ItaKitchen" class="logo">
+    </figure>
+
+    <p class="intro">Um lugar para ter certeza que está fazendo a 
+      <span class="texto-laranja">escolha certa</span> 
+      antes de fazer seu <span class="texto-laranja">pedido</span>!
+    </p>
+
+    <div>
+      <h2>Bem-vindo(a)!</h2>
+
+      <p class="texto-laranja">Pronto para começar?</p>
+
+      <button ion-button class="btn-inicio" (click)="login();">
+       Login <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn login">
+      </button>
+
+      <button ion-button class="btn-inicio marrom" (click)="cadastro();">
+        Cadastro <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn cadastro">
+       </button>
+
+    </div>
+
+  </section>
+</ion-content>

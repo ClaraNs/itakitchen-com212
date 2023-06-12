@@ -1,0 +1,88 @@
+<!--
+  Generated template for the InicioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+     </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button class="bt-sair" (click)="sair();">
+        <img src="assets/imgs/icons/sair.png" alt="Sair" class="icon-bt-sair">
+      </button>
+    </ion-buttons>
+    <ion-title class="inicio-title">
+      <img src="assets/imgs/itakitchen.svg" alt="Logo ItaKitchen" class="logo">
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <section>
+
+    <ion-fab right bottom  *ngIf="usuario.cpf != undefined">
+      <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+    <ion-row>
+      <ion-col col-4>
+        <img [src]="imagemURL" safe class="img-perfil">
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="nome-perfil texto-marrom">{{usuario.nome}}</h2>
+        <h5 class="num-perfil">{{numavaliacoes}} avaliações</h5>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="bts-usuario">
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarPerfil();">
+        Editar Perfil
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
+      </button>
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="confirmaExclusao();">
+        Excluir Perfil
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
+      </button>
+    </ion-row>
+
+    
+
+    
+  </section>
+</ion-content>
+
+<ion-footer *ngIf="usuario.cpf != undefined">
+  <ion-toolbar class="tool-tab">
+    <ion-row class="row-tabs">
+      <button col-4 class="bt-tab" (click)="inicio();">
+        <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab">
+      </button>
+      <button col-4 class="bt-tab" (click)="minhasAvaliacoes();">
+        <img src="assets/imgs/icons/avaliacao.png" alt="ìcone do início." class="icon-tab">
+      </button>
+      <button col-4 class="bt-tab atual">
+        <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab">
+      </button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="usuario.cnpj != undefined">
+  <ion-toolbar class="tool-tab">
+    <ion-row class="row-tabs">
+      <button col-6 class="bt-tab" (click)="inicio()">
+        <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab-e">
+      </button>
+      <button col-6 class="bt-tab atual">
+        <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab-e">
+      </button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

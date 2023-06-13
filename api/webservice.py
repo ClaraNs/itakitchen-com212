@@ -147,11 +147,11 @@ def retornaCliente():
     result = []
     for id, email, nome, cpf, datanas, foto, tipo in retorno:
         print(foto)
-        if(foto != None):
-            fotocerta = bytea_to_base64(foto)
-            result.append(model.Cliente(id, email, nome, cpf, datanas, str(fotocerta), tipo))
+        if foto is None:
+            fotocerta = ""
         else:
-            result.append(model.Cliente(id, email, nome, cpf, datanas, None, tipo))
+            fotocerta = bytea_to_base64(foto)
+        result.append(model.Cliente(id, email, nome, cpf, datanas, str(fotocerta), tipo))
     
     return result
 
@@ -162,11 +162,11 @@ def retornaClientePorId(id):
 
     result = []
     for idn, email, nome, cpf, datanas, foto, tipo in retorno:
-        if(foto != None):
-            fotocerta = bytea_to_base64(foto)
-            result.append(model.Cliente(idn, email, nome, cpf, datanas, str(fotocerta), tipo))
+        if foto is None:
+            fotocerta = ""
         else:
-            result.append(model.Cliente(id, email, nome, cpf, datanas, None, tipo))
+            fotocerta = bytea_to_base64(foto)      
+        result.append(model.Cliente(idn, email, nome, cpf, datanas, str(fotocerta), tipo))
     
     return result
 
@@ -587,7 +587,7 @@ def retornaNotaENumAvaliacoesPorEstab(id):
     return result
 
 @app.get("/avaliacaoporestab&id={id}")
-def retornaNotaENumAvaliacoesPorEstab(id):
+def retornaAvaliacoesPorEstab(id):
     
     retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
                   " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE c.idestab = %s", (id,))

@@ -85,6 +85,67 @@ CREATE TABLE avaliacao (
     
 );
 
+/*Inserção das categorias*/
+INSERT INTO categoria (descricao) VALUES
+('Africana'),
+('Alemã'),
+('Árabe'),
+('Argentina'),
+('Asiática'),
+('Açaí'),
+('Baiana'),
+('Bebidas'),
+('Brasileira'),
+('Cafeteria'),
+('Carnes'),
+('Sucos'),
+('Chinesa'),
+('Colombiana'),
+('Congeladas Fit'),
+('Congeladas'),
+('Contemporânea'),
+('Conveniência'),
+('Coreana'),
+('Cozinha Rápida'),
+('Crepes'),
+('Doces e Bolos'),
+('Espanhola'),
+('Francesa'),
+('Frangos'),
+('Frutos-do-Mar'),
+('Gaúcha'),
+('Grega'),
+('Hamburgueria'),
+('Indiana'),
+('Italiana'),
+('Japonesa'),
+('Lanches'),
+('Marmitaria'),
+('Marroquina'),
+('Mediterrânea'),
+('Mercado'),
+('Mexicana'),
+('Mineira'),
+('Nordestina'),
+('Padaria'),
+('Panqueca'),
+('Paraense'),
+('Pastelaria'),
+('Peixes'),
+('Peruana'),
+('Pizzaria'),
+('Portuguesa'),
+('Presentes'),
+('Salgados'),
+('Saudável'),
+('Sopas e Caldos'),
+('Sorveteria'),
+('Tailandesa'),
+('Tapioca'),
+('Típica do Norte'),
+('Vegana e Vegetariana'),
+('Yakisoba');
+
 /*Lógica de inserção de estabelecimento*/
 
 CREATE OR REPLACE PROCEDURE inserir_estabelecimento(nome varchar(255), cnpj char(14), email varchar(255),senha varchar(255), contato varchar(50), foto bytea, descricao_e text, rua varchar(255), numero int, complem varchar(255), bairro varchar(255), cep char(8), hDomingoInicio time, hDomingoFim time,bhSegundaInicio time, hSegundaFim time, hTercaInicio time, hTercaFim time, hQuartaInicio time, hQuartaFim time, hQuintaInicio time, hQuintaFim time, hSextaInicio time, hSextaFim time, hSabadoInicio time, hSabadoFim time, idcategoria int)
@@ -143,7 +204,7 @@ CREATE TRIGGER tr_excluir_estabelecimento
     EXECUTE FUNCTION excluir_estabelecimento_trigger();
 
 -- Excluí avaliações ligadas ao restaurante que será excluído
-CREATE OR REPLACE FUNCTION excluir_estabelecimento_trigger()
+CREATE OR REPLACE FUNCTION excluir_avaliacao_estabelecimento_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
     DELETE FROM avaliacao WHERE idEstab = OLD.id;
@@ -154,7 +215,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_excluir_avaliacoes
 BEFORE DELETE ON estabelecimento
 FOR EACH ROW
-EXECUTE FUNCTION excluir_avaliacoes();
+EXECUTE FUNCTION excluir_avaliacao_estabelecimento_trigger();
 
 
 /*Cliente*/
@@ -203,6 +264,8 @@ CREATE TRIGGER tr_atualiza_media
 SELECT * FROM avaliacao
 SELECT * FROM horariofuncionamento
 SELECT * FROM cliente
+SELECT * FROM categoria
+SELECT * FROM endereco
 SELECT e.nome, c.id, c.descricao FROM estabelecimento e JOIN categoria c ON e.idcategoria = c.id
 
 SELECT (notarefeicao + notaatendimento + notaambiente + notapreco)/4 FROM avaliacao;
@@ -211,4 +274,5 @@ INSERT INTO categoria(descricao) VALUES('hamburgueria')
 DELETE FROM estabelecimento
 DELETE FROM categoria WHERE id = 7
 DELETE FROM endereco
-DELETE FROM horariofuncionamento*/
+DELETE FROM horariofuncionamento
+DELETE FROM categoria*/

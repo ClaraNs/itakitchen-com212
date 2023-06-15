@@ -247,6 +247,10 @@ def atualizaCliente(id, campos, valores):
     
     return result
 
+'''@app.get("/atualizasenhacliente&id={id}")
+def atualizaSenhaCliente(id, item: dict):
+    retorno = alter("UPDATE cliente SET senha = crypt(%s, gen_salt('bf')" item[senha] + " WHERE id = " + id))'''
+
 @app.get("/numavaliacoescliente&id={id}")
 def retornaNumAvaliacoes(id):
     

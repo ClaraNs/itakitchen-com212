@@ -23,7 +23,7 @@ export class InicioPage {
   estabelecimentos: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private share: ShareService) {
-    console.log(this.navParams.get("estab"));
+    
     if (this.navParams.get("cliente") != undefined) {
       this.clienteOuEstab = 0;
       this.usuario = this.navParams.get("cliente");
@@ -65,7 +65,7 @@ export class InicioPage {
             tipoarquivo: 'jpeg',
             numavaliacoes: data2[0][0],
             nota: data2[0][1],
-            fotourl: 'data:image/' + 'jpeg' + ';base64,' + x.foto
+            fotourl: 'data:image/' + 'png' + ';base64,' + x.foto
           }
 
           this.estabelecimentos.push(estab);

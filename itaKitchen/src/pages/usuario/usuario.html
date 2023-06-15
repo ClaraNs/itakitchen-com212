@@ -27,7 +27,7 @@
 
   <section>
 
-    <ion-fab right bottom  *ngIf="usuario.cpf != undefined">
+    <ion-fab right bottom  *ngIf="clienteOuEstab == 0">
       <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
@@ -42,10 +42,23 @@
     </ion-row>
 
     <ion-row class="bts-usuario">
-      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarPerfil();">
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarPerfil();" *ngIf="clienteOuEstab == 0">
         Editar Perfil
         <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
       </button>
+
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarDadosEstab();" *ngIf="clienteOuEstab == 1">
+        Editar Dados
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
+      </button><button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarEndereco();" *ngIf="clienteOuEstab == 1">
+        Editar Endereço
+        <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
+      </button>
+      <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="editarHorario();" *ngIf="clienteOuEstab == 1">
+        Editar Horário de Funcionamento
+        <ion-icon name="ios-arrow-forward" class="icon-bt horario"></ion-icon>
+      </button>
+
       <button col-12 ion-button class="bt-usuario laranja" item-start icon-end (click)="confirmaExclusao();">
         Excluir Perfil
         <ion-icon name="ios-arrow-forward" class="icon-bt"></ion-icon>
@@ -58,7 +71,7 @@
   </section>
 </ion-content>
 
-<ion-footer *ngIf="usuario.cpf != undefined">
+<ion-footer *ngIf="clienteOuEstab == 0">
   <ion-toolbar class="tool-tab">
     <ion-row class="row-tabs">
       <button col-4 class="bt-tab" (click)="inicio();">
@@ -74,7 +87,7 @@
   </ion-toolbar>
 </ion-footer>
 
-<ion-footer *ngIf="usuario.cnpj != undefined">
+<ion-footer *ngIf="clienteOuEstab == 1">
   <ion-toolbar class="tool-tab">
     <ion-row class="row-tabs">
       <button col-6 class="bt-tab" (click)="inicio()">

@@ -116,6 +116,8 @@ export class CadastroEstabelecimentoPrimeiroPage {
         descricao: this.descricao,
 
       }
+
+      
       this.navCtrl.push(CadastroEstabelecimentoSegundoPage, {estab: estab}, { animate: true });
           
     }
@@ -132,6 +134,7 @@ export class CadastroEstabelecimentoPrimeiroPage {
     reader.onloadend = () => {
       const base64 = reader.result as string;
       this.img = base64;
+      console.log(this.img);
     };
 
     reader.readAsDataURL(file);

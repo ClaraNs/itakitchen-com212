@@ -1,5 +1,5 @@
 page-inicio {
-    
+
 
     .bt-inicio {
         border-radius: 40px;
@@ -8,11 +8,11 @@ page-inicio {
         font-size: 1.1em;
     }
 
-    .bts-inicio{
+    .bts-inicio {
         margin-top: 25px;
     }
 
-    p.vazio{
+    p.vazio {
         text-align: center;
         font-size: 1.5em;
     }
@@ -35,27 +35,27 @@ page-inicio {
     ion-navbar {
         box-shadow: none;
     }
-    
+
     .header-md::after {
         background: transparent;
     }
-    
+
     .toolbar-background {
         background-color: transparent;
     }
-    
+
     ion-buttons {
         width: 18% !important;
     }
-    
+
     ion-title {
         margin-left: 10px;
     }
-    
+
     h1 {
         font-size: 1.9em;
     }
-    
+
     .icon-bt-voltar.comum {
         width: 65%;
     }
@@ -71,11 +71,28 @@ page-inicio {
     ion-title.inicio-title {
         text-align: left;
     }
+
+    .card-estab {
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+
+    .estabelecimentos {
+        margin-top: 25px;
+    }
+
+    h2.nome-perfil {
+        margin-top: 5px !important;
+    }
+
+    
 }
 
 
 
-ion-fab{
+ion-fab {
     bottom: 20px !important;
     right: 15px !important;
 }
@@ -134,4 +151,26 @@ ion-footer .toolbar:last-child {
     padding: 0;
     margin: 0;
     background-color: #F4991A;
+}
+
+.estrela {
+    width: 25px;
+    height: 25px;
+    margin: 5px 0 1px 3%;
+}
+
+.img-estab {
+    border-radius: 20px;
+}
+
+h5.num-avaliacao {
+    font-weight: 500;
+    margin: 8px 0 0 3% !important;
+    color: #484848;
+    font-size: 1.2em;
+
+    span {
+        padding: 0px 6px;
+        font-size: 12px;
+    }
 }

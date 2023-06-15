@@ -137,6 +137,19 @@ def fazLogin(item: dict):
     else:
         return result
 
+'''@app.get("/clienteporemail&email={email}")
+def retornaClienteEmail(email):
+    
+    retorno = retByValue("SELECT COUNT(c.id) FROM cliente as c WHERE c.email = %s", (email,))
+    print(retorno)
+    return retorno'''
+
+@app.get("/clienteporcpf&cpf={cpf}")
+def retornaClienteCpf(cpf):
+    
+    retorno = retByValue("SELECT COUNT(c.id) FROM cliente as c WHERE c.cpf = %s", (cpf,))
+    print(retorno)
+    return retorno
 
 @app.get("/cliente")
 def retornaCliente():
@@ -247,10 +260,6 @@ def atualizaCliente(id, campos, valores):
     
     return result
 
-'''@app.get("/atualizasenhacliente&id={id}")
-def atualizaSenhaCliente(id, item: dict):
-    retorno = alter("UPDATE cliente SET senha = crypt(%s, gen_salt('bf')" item[senha] + " WHERE id = " + id))'''
-
 @app.get("/numavaliacoescliente&id={id}")
 def retornaNumAvaliacoes(id):
     
@@ -263,6 +272,32 @@ def retornaNumAvaliacoes(id):
     return result
 
 #Estabelecimento 
+@app.get("/usuarioporemail&email={email}")
+def retornaUsuarioEmail(email):
+    
+    retorno = retByValue( "SELECT COUNT(*) AS total FROM ("
+                         "SELECT 'estabelecimento' AS email FROM estabelecimento WHERE email = %s "
+                         "UNION ALL "
+                         "SELECT 'cliente' AS email FROM cliente WHERE email = %s "
+                         ") AS combined", (email, email))
+
+    print(retorno)
+    return retorno
+
+'''@app.get("/estabelecimentoporemail&email={email}")
+def retornaEstabelecimentoEmail(email):
+    
+    retorno = retByValue("SELECT COUNT(e.id) FROM estabelecimento as e WHERE e.email = %s", (email,))
+    print(retorno)
+    return retorno'''
+
+@app.get("/estabelecimentoporcnpj&cnpj={cnpj}")
+def retornaEstabelecimentoCnpj(cnpj):
+    
+    retorno = retByValue("SELECT COUNT(e.id) FROM estabelecimento as e WHERE e.cnpj = %s", (cnpj,))
+    print(retorno)
+    return retorno
+
 @app.get("/estabelecimento")
 def retornaEstabelecimento():
     

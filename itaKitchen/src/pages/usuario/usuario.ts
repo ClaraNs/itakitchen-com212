@@ -20,11 +20,15 @@ export class UsuarioPage {
   usuario: any = null;
   imagemURL: any = null;
   numavaliacoes: any = 0;
+  clienteOuEstab:any = 0; // 0 - cliente 1 - estabelecimento
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private share: ShareService,
     private alertCtrl: AlertController, private toastCtrl: ToastController, public storage: Storage) {
     this.usuario = this.navParams.get("usuario");
     this.imagemURL = 'data:image/png;base64,' + this.usuario.foto;
+    if(this.usuario.cnpj != undefined){
+      this.clienteOuEstab = 1;
+    }
     this.retornaNumAvaliacoes();
   }
 

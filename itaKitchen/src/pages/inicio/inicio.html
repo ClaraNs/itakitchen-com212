@@ -22,7 +22,7 @@
 
   <section *ngIf="clienteOuEstab == 0">
 
-    <ion-fab right bottom >
+    <ion-fab right bottom>
       <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
@@ -38,23 +38,24 @@
         <img src="assets/imgs/icons/ordenar.png" class="icon-bt-inicio" alt="Ícone de ordenar.">
       </button>
     </ion-row>
-
+    
     <div class="estabelecimentos">
-      <ion-row *ngFor="let estab of estabelecimentos">
-        <ion-col col-4>
-          <img [src]="estab.url" safe class="img-perfil">
-        </ion-col>
-        <ion-col col-6>
-          <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
-          
-          <h5 class="num-perfil num-avaliacao">
-            <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela"> 
-           {{estab.nota}} • {{estab.numavaliacoes}} avaliações</h5>
-        </ion-col>
-      </ion-row>
-      <div *ngIf="estabelecimentos.length == 0">
-        <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
-      </div>
+    <ion-row *ngFor="let estab of estabelecimentos" class="card-estab">
+      <ion-col col-3>
+        <img [src]="estab.fotourl" safe class="img-estab">
+      </ion-col>
+      <ion-col col-9>
+        <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
+        <ion-row>
+          <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela">
+          <h5 class="num-perfil num-avaliacao"> {{estab.nota}} <span>•</span> {{estab.numavaliacoes}} avaliações</h5>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+  </div>
+    <div *ngIf="estabelecimentos.length == 0">
+      <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
     </div>
   </section>
 

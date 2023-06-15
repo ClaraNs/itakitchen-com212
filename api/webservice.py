@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 
-conexao = "host='localhost' dbname='itakitchen' user='postgres' password='postgres'"
+conexao = "host='localhost' dbname='itakitchen' user='postgres' password='lulu'"
 
 
 def image_to_base64(image_path):
@@ -339,6 +339,7 @@ def retornaEstabelecimentoPorId(id):
 def criarEstabelecimento(item: dict):
     # Atributos não obrigatórios
     prefoto = img_padrao_estab
+    print(item)
     if "foto" in item and item["foto"] != None:
         prefoto = item["foto"]
         

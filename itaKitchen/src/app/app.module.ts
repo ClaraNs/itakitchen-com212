@@ -24,6 +24,10 @@ import { NovaAvaliacaoPage } from '../pages/nova-avaliacao/nova-avaliacao';
 import { EditarAvaliacaoPage } from '../pages/editar-avaliacao/editar-avaliacao';
 import { MinhasAvaliacoesPage } from '../pages/minhas-avaliacoes/minhas-avaliacoes';
 import { EditarClientePage } from '../pages/editar-cliente/editar-cliente';
+import { EditarEnderecoPage } from '../pages/editar-endereco/editar-endereco';
+import { EditarEstabPage } from '../pages/editar-estab/editar-estab';
+import { EditarHorarioPage } from '../pages/editar-horario/editar-horario';
+import { InformacoesEstabPage } from '../pages/informacoes-estab/informacoes-estab';
 
 
 @NgModule({
@@ -43,6 +47,10 @@ import { EditarClientePage } from '../pages/editar-cliente/editar-cliente';
     EditarAvaliacaoPage,
     MinhasAvaliacoesPage,
     EditarClientePage,
+    EditarEnderecoPage,
+    EditarEstabPage,
+    EditarHorarioPage,
+    InformacoesEstabPage,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +76,10 @@ import { EditarClientePage } from '../pages/editar-cliente/editar-cliente';
     EditarAvaliacaoPage,
     MinhasAvaliacoesPage,
     EditarClientePage,
+    EditarEnderecoPage,
+    EditarEstabPage,
+    EditarHorarioPage,
+    InformacoesEstabPage,
   ],
   providers: [
     StatusBar,

@@ -19,18 +19,18 @@ import { ShareService } from '../share/share';
 export class InicioPage {
 
   clienteOuEstab: any = 0; //0 Cliente - 1 Estabelecimento 
-  usuario: any = null;
+  usuario: any;
   estabelecimentos: any = [];
+  avaliacoes:any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private share: ShareService) {
     
-    if (this.navParams.get("cliente") != undefined) {
+    this.usuario = this.navParams.get("usuario");
+    if (this.usuario.cpf != undefined) {
       this.clienteOuEstab = 0;
-      this.usuario = this.navParams.get("cliente");
       this.carregarEstabelecimentos();
     }else{
       this.clienteOuEstab = 1;
-      this.usuario = this.navParams.get("estab");
     }
   }
 

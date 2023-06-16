@@ -3,6 +3,8 @@ import { AlertController, IonicPage, NavController, NavParams, Toast, ToastContr
 import { ShareService } from '../share/share';
 import { Storage } from '@ionic/storage';
 import { EditarClientePage } from '../editar-cliente/editar-cliente';
+import { MinhasAvaliacoesPage } from '../minhas-avaliacoes/minhas-avaliacoes';
+import { InicioPage } from '../inicio/inicio';
 /**
  * Generated class for the UsuarioPage page.
  *
@@ -32,6 +34,11 @@ export class UsuarioPage {
     this.retornaNumAvaliacoes();
   }
 
+  minhasAvaliacoes() {
+    this.navCtrl.push(MinhasAvaliacoesPage, { usuario: this.usuario, clienteOuEstab: this.clienteOuEstab },
+      { animate: true });
+  }
+
 
   editarPerfil() {
     if (this.usuario.cpf != undefined) {
@@ -59,7 +66,7 @@ export class UsuarioPage {
   }
 
   inicio() {
-    this.navCtrl.pop();
+    this.navCtrl.push(InicioPage, { usuario: this.usuario }, { animate: true });
   }
 
   confirmaExclusao() {

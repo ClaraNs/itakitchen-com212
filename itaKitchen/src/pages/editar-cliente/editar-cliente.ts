@@ -42,7 +42,7 @@ export class EditarClientePage {
     this.email = this.usuarioantigo.email;
     this.nome = this.usuarioantigo.nome;
     this.cpf = this.usuarioantigo.cpf;
-    this.datanas = this.usuarioantigo.dataNascimento;
+    this.datanas = this.usuarioantigo.datanas;
     this.tipocli = this.usuarioantigo.tipo;
 
   }

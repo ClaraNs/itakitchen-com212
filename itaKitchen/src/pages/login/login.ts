@@ -79,7 +79,7 @@ export class LoginPage {
               this.storage.set("senha", this.senha);
               this.storage.set("conectado", this.conectado);
 
-              this.navCtrl.push(InicioPage, { cliente: cliente }, { animate: true });
+              this.navCtrl.push(InicioPage, { usuario: cliente }, { animate: true });
             } else {
               let estab = {
                 id: data[0].id,
@@ -94,7 +94,7 @@ export class LoginPage {
               };
               this.storage.set("email", this.email);
               this.storage.set("senha", this.senha);
-              this.navCtrl.push(InicioPage, { estab: estab }, { animate: true });
+              this.navCtrl.push(InicioPage, { usuario: estab }, { animate: true });
             }
 
           } else {

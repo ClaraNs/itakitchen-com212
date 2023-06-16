@@ -54,14 +54,19 @@
       </ion-col>
     </ion-row>
   </div>
-    <div *ngIf="estabelecimentos.length == 0">
+    <div *ngIf="estabelecimentos.length == 0 && clienteOuEstab == 0">
       <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
+    </div>
+    <div *ngIf="avaliacoes.length == 0 && clienteOuEstab == 1">
+      <p class="texto-marrom vazio">Não há avaliações para seu estabelecimento ainda.</p>
     </div>
   </section>
 
   <section *ngIf="clienteOuEstab == 1">
     <h1 class="saudacao texto-marrom">Bem-vindo ao perfil de {{usuario.nome}}!</h1>
-
+    <div *ngIf="avaliacoes.length == 0 && clienteOuEstab == 1">
+      <p class="texto-marrom vazio">Não há avaliações para seu estabelecimento ainda.</p>
+    </div>
   </section>
 </ion-content>
 

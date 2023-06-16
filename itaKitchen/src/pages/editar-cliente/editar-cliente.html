@@ -38,8 +38,7 @@
 
     <ion-item class="input">
       <ion-label color="primary" hidden>Data de nascimento</ion-label>
-      <ion-input placeholder="Data de nascimento" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
-        [(ngModel)]="datanas" name="datanas"></ion-input>
+      <ion-input placeholder="Data de nascimento" type="date" [(ngModel)]="datanas" name="datanas"></ion-input>
     </ion-item>
 
     <ion-item class="input">
@@ -49,11 +48,11 @@
       </ion-select>
     </ion-item>
 
-    <div class="input-file">
+    <!--<div class="input-file">
       <label for="arquivo">{{nomearq}}<img src="assets/imgs/icons/upload.png" class="icon-upload"></label>
       <input placeholder="Enviar foto de perfil..." type="file" (change)="processFile($event)" name="arquivo"
         id="arquivo">
-    </div>
+    </div>-->
 
     <button ion-button class="btn-login" (click)="editarCliente();">
       Finalizar <img src="assets/imgs/icons/setas-duplas.png" alt="Salvar." class="icon-btn-login">

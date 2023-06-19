@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 
-conexao = "host='localhost' dbname='itakitchen' user='postgres' password='lulu'"
+conexao = "host='localhost' dbname='itakitchen' user='postgres' password='postgres'"
 
 
 def image_to_base64(image_path):
@@ -271,6 +271,23 @@ def retornaNumAvaliacoes(id):
     
     return result
 
+# Retorna os 5 clientes com mais avaliações feitas na plataforma (nome e total de avaliações)
+@app.get("/clientesmaisativos")
+def clientesMaisAtivos():
+    
+    retorno = retByValue("SELECT c.nome, COUNT(a.idCli) AS total_avaliacoes "
+                        "FROM cliente AS c "
+                        "JOIN avaliacao AS a ON a.idCli = c.id "
+                        "GROUP BY c.nome "
+                        "ORDER BY total_avaliacoes DESC "
+                        "LIMIT 5")
+
+    result = []
+    for nome, total_avaliacoes in retorno:
+        result.append((nome, total_avaliacoes))
+    
+    return result
+
 #Estabelecimento 
 @app.get("/usuarioporemail&email={email}")
 def retornaUsuarioEmail(email):
@@ -410,6 +427,40 @@ def atualizaEstabelecimento(id, campos, valores):
         result = 1
     else:
         result = 0
+    
+    return result
+
+@app.get("/estabelecimentoporcategoria&categoria={categoria}")
+def estabelecimentoPorCategoria(categoria):
+
+    retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, " +
+                  "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e " +  
+                  "JOIN categoria AS c ON e.idcategoria = c.id WHERE c.descricao = %s", (categoria,))
+
+    result = []
+    for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
+        if foto is None:
+            fotocerta = ""
+        else:
+            fotocerta = bytea_to_base64(foto)
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
+    
+    return result
+
+@app.get("/estabelecimentopornome&nome={nome}")
+def estabelecimentoPorCategoria(nome):
+
+    retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, " +
+                  "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e " +  
+                  "WHERE e.nome LIKE %s", ('%' + nome + '%',))
+
+    result = []
+    for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
+        if foto is None:
+            fotocerta = ""
+        else:
+            fotocerta = bytea_to_base64(foto)
+        result.append(model.Estabelecimento(idn, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
 
@@ -643,6 +694,27 @@ def retornaAvaliacoesPorEstab(id):
                                       notaPreco, descriPreco, dataeHora))
     return result
 
+#Retorna os 5 estabelecimentos com maior média nas avaliacoes
+@app.get("/estabelecimentomaisbemavaliado")
+def retornaAvaliacoesPorEstab():
+    
+    retorno = retByValue("""
+                        SELECT sub.media, e.nome
+                        FROM (
+                            SELECT AVG(a.media) AS media, a.idEstab
+                            FROM avaliacao AS a
+                            GROUP BY a.idEstab
+                            ORDER BY AVG(a.media) DESC
+                            LIMIT 5
+                        ) AS sub
+                        JOIN estabelecimento AS e ON sub.idEstab = e.id;
+                        """)
+
+    result = []
+    for (nome, media) in retorno:
+        result.append((nome, media))
+    return result
+
 @app.post("/criaravaliacao")
 def criaAvaliacao(item: dict):
     now = datetime.now()
@@ -716,6 +788,7 @@ def atualizaAvaliacao(id, campos, valores):
         result = 0
     
     return result
+
 
 #Categoria
 @app.get("/categoria")

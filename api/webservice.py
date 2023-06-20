@@ -430,6 +430,7 @@ def atualizaEstabelecimento(id, campos, valores):
     
     return result
 
+# Consulta por categoria
 @app.get("/estabelecimentoporcategoria&categoria={categoria}")
 def estabelecimentoPorCategoria(categoria):
 
@@ -447,6 +448,7 @@ def estabelecimentoPorCategoria(categoria):
     
     return result
 
+# Consulta por nome
 @app.get("/estabelecimentopornome&nome={nome}")
 def estabelecimentoPorCategoria(nome):
 
@@ -664,6 +666,24 @@ def retornaAvaliacaoPorId(id):
                                       notaPreco, descriPreco, dataeHora))
     return result
 
+# Avaliações do cliente com aquele id
+@app.get("/avaliacaocliente&id={id}")
+def retornaAvaliacaoPorCliente(id):
+    
+    retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idcli = %s", (id,))
+
+    result = []
+    for (id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+                 notaAtendimento, descriAtendimento,
+                 notaAmbiente, descriAmbiente,
+                 notaPreco, descriPreco,
+                 dataeHora) in retorno:
+        result.append(model.Avaliacao(id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+                                      notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
+                                      notaPreco, descriPreco, dataeHora))
+    return result
+
 @app.get("/numavaliacaoporestab&id={id}")
 def retornaNotaENumAvaliacoesPorEstab(id):
     
@@ -681,7 +701,7 @@ def retornaNotaENumAvaliacoesPorEstab(id):
 def retornaAvaliacoesPorEstab(id):
     
     retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
-                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE c.idestab = %s", (id,))
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idestab = %s", (id,))
 
     result = []
     for (idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
@@ -788,7 +808,6 @@ def atualizaAvaliacao(id, campos, valores):
         result = 0
     
     return result
-
 
 #Categoria
 @app.get("/categoria")

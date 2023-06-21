@@ -23,13 +23,15 @@
   </ion-navbar>
 </ion-header>
 
+<ion-fab right bottom (click)="novaAvaliacao();" slot="fixed" *ngIf="clienteOuEstab == 0">
+  <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
 <ion-content padding>
 
   <section>
 
-    <ion-fab right bottom  *ngIf="clienteOuEstab == 0">
-      <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
+
 
     <ion-row>
       <ion-col col-4>

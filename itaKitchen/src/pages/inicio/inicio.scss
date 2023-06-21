@@ -87,13 +87,65 @@ page-inicio {
         margin-top: 5px !important;
     }
 
+
+    .descricao {
+        padding-top: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* Número máximo de linhas */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #b4b4b4;
+
+    }
+
+
+    h5.nome {
+        span {
+            padding: 0px 6px;
+            font-size: 10px;
+        }
+    }
+
+    ion-row.notas{
+        margin-top: 10px;
+        color: #484848;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    ion-row.titulo-aval{
+        align-items: center;
+        justify-content: center;
+    }
+
+    img.icone-nota {
+        width: 8%;
+        margin: 0 4%;
+    }
+    .estrela-aval{
+        width: 20px;
+        height: 20px;
+        margin: -2px 0 1px 0%;
+    }
+
+    h5.nota {
+        margin: 0 0 0 8px;
+        
+    }
+
+    h5.nome {
+        margin: 0;
+    }
+
     
 }
 
 
 
 ion-fab {
-    bottom: 20px !important;
+    bottom: 70px !important;
     right: 15px !important;
 }
 
@@ -173,4 +225,7 @@ h5.num-avaliacao {
         padding: 0px 6px;
         font-size: 12px;
     }
+
+
+    
 }

@@ -1,0 +1,44 @@
+page-ver-avaliacao {
+    h2.nome-perfil {
+        margin-top: 5px !important;
+    }
+
+    h5.nota {
+        margin-left: 10px;
+    }
+
+    ion-row.titulo-aval {
+        align-items: center;
+        width: 100%;
+    }
+
+    .icone-nota{
+        width: 10%;
+        margin-right: 5%;
+    }
+
+    p{
+        margin-bottom: 0;
+    }
+
+    ion-row.nota{
+        align-items: center;
+        font-weight: bold;
+        color: #321313;
+        
+    }
+
+    .card-aval{
+        font-size: 1.5em;
+        padding: 30px;
+        
+    }
+    .card-aval.nota-final {
+        padding: 10px !important;
+    }
+
+    .aval-descri{
+        text-align: justify;
+        font-weight: 400;
+    }
+}

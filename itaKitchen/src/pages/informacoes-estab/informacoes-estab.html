@@ -1,15 +1,112 @@
 <!--
-  Generated template for the InformacoesEstabPage page.
+  Generated template for the InicioPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>informacoesEstab</ion-title>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+     </button>
+    </ion-buttons>
+
+    <ion-title class="inicio-title">
+      <img src="assets/imgs/itakitchen.svg" alt="Logo ItaKitchen" class="logo logo-menor">
+    </ion-title>
+
   </ion-navbar>
 </ion-header>
 
+<ion-fab right bottom (click)="novaAvaliacao();" slot="fixed">
+  <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
 <ion-content padding>
 
+  <section>
+    <ion-row class="card-estab" *ngIf="estab.fotourl != undefined">
+      <ion-col col-3>
+        <img [src]="estab.fotourl" safe class="img-estab">
+      </ion-col>
+      <ion-col col-9>
+        <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
+        <ion-row>
+          <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela-estab">
+          <h5 class="num-perfil num-avaliacao"> {{estab.nota}} <span>•</span> {{estab.numavaliacoes}} avaliações</h5>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+    <ion-row class="titulo">
+      <h5 col-6 class="texto-marrom">Informações</h5>
+    </ion-row>
+
+    <ion-row class="titulo" *ngIf="estab.descricao != null">
+      <h5 col-12 class="texto-laranja">Descrição</h5>
+      <p col-12>{{estab.descricao}}</p>
+    </ion-row>
+
+    <ion-row class="titulo" *ngIf="endereco != null">
+      <h5 col-12 class="texto-laranja">Endereço</h5>
+      <ion-col col-2>
+        <img src="assets/imgs/icons/localizacao.png" alt="Ícone de localização." class="localizacao">
+      </ion-col>
+      <ion-col col-10>
+        <p>{{endereco.rua}}, nº {{endereco.numero}}</p>
+        <p>{{endereco.bairro}}</p>
+        <p>CEP: {{endereco.textocep}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="titulo" *ngIf="horario != null">
+      <h5 col-12 class="texto-laranja">Horário de Funcionamento</h5>
+      <ion-col col-5>
+        <p>Domingo</p>
+        <p>Segunda-feira</p>
+        <p>Terça-feira</p>
+        <p>Quarta-feira</p>
+        <p>Quinta-feira</p>
+        <p>Sexta-feira</p>
+        <p>Sábado</p>
+      </ion-col>
+      <ion-col col-7>
+        <p>{{horario.hdomingoinicio}} às {{horario.hdomingofim}}</p>
+        <p>{{horario.hsegundainicio}} às {{horario.hsegundafim}}</p>
+        <p>{{horario.htercainicio}} às {{horario.htercafim}}</p>
+        <p>{{horario.hquartainicio}} às {{horario.hquartafim}}</p>
+        <p>{{horario.hquintainicio}} às {{horario.hquintafim}}</p>
+        <p>{{horario.hsextainicio}} às {{horario.hsextafim}}</p>
+        <p>{{horario.hsabadoinicio}} às {{horario.hsabadofim}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="titulo" *ngIf="estab.cnpj != null">
+      <h5 col-12 class="texto-laranja">Outras Informações</h5>
+      <p col-12>{{estab.textocnpj}}</p>
+    </ion-row>
+
+    
+  </section>
 </ion-content>
+
+<ion-footer >
+  <ion-toolbar class="tool-tab">
+    <ion-row class="row-tabs">
+      <button col-4 class="bt-tab" (click)="menu();">
+        <img src="assets/imgs/icons/home.png" alt="ìcone do início." class="icon-tab">
+      </button>
+      <button col-4 class="bt-tab" (click)="minhasAvaliacoes();">
+        <img src="assets/imgs/icons/avaliacao.png" alt="ìcone do início." class="icon-tab">
+      </button>
+      <button col-4 class="bt-tab" (click)="acessarPerfil();">
+        <img src="assets/imgs/icons/usuario.png" alt="ìcone do início." class="icon-tab">
+      </button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+

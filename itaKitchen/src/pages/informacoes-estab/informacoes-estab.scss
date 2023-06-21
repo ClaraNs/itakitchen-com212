@@ -1,3 +1,23 @@
 page-informacoes-estab {
+    .estrela-estab {
+        width: 25px;
+        height: 25px;
+        margin: 5px 0 1px 3%;
+    }
 
+    ion-row.titulo {
+        margin-top: 10px;
+
+        h5 {
+            margin: 0 !important;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1.2em;
+            color: #484848;
+        }
+
+
+    }
 }

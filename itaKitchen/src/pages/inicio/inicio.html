@@ -18,14 +18,15 @@
   </ion-navbar>
 </ion-header>
 
+<ion-fab right bottom (click)="novaAvaliacao();" slot="fixed" *ngIf="clienteOuEstab == 0">
+  <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
 <ion-content padding>
 
   <section *ngIf="clienteOuEstab == 0">
 
-    <ion-fab right bottom>
-      <button ion-fab class="marrom"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
-
+  
     <h1 class="saudacao texto-marrom">Olá, {{usuario.nome}}!</h1>
 
     <ion-row class="bts-inicio">
@@ -40,7 +41,7 @@
     </ion-row>
     
     <div class="estabelecimentos">
-    <ion-row *ngFor="let estab of estabelecimentos" class="card-estab">
+    <ion-row *ngFor="let estab of estabelecimentos" class="card-estab" (click)="verEstab(estab.id)">
       <ion-col col-3>
         <img [src]="estab.fotourl" safe class="img-estab">
       </ion-col>
@@ -54,17 +55,49 @@
       </ion-col>
     </ion-row>
   </div>
+
+  <div>
+    
+  </div>
     <div *ngIf="estabelecimentos.length == 0 && clienteOuEstab == 0">
       <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
-    </div>
-    <div *ngIf="avaliacoes.length == 0 && clienteOuEstab == 1">
-      <p class="texto-marrom vazio">Não há avaliações para seu estabelecimento ainda.</p>
     </div>
   </section>
 
   <section *ngIf="clienteOuEstab == 1">
     <h1 class="saudacao texto-marrom">Bem-vindo ao perfil de {{usuario.nome}}!</h1>
-    <div *ngIf="avaliacoes.length == 0 && clienteOuEstab == 1">
+    <div class="estabelecimentos">
+      <ion-row *ngFor="let aval of avaliacoes" class="card-aval" (click)="verAvaliacao(aval.id);">
+        <ion-row class="titulo-aval">
+          <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela-aval">
+            <h5 class="nota texto-marrom">{{aval.media.toFixed(2)}}</h5>
+          <h5 class="texto-marrom nome"> <span>•</span>  {{aval.nomeestab}} </h5> 
+           
+        </ion-row>
+        <ion-row class="notas">
+          <img src="assets/imgs/icons/refeicao.png" alt="Ícone de refeição." class="icone-nota">
+          {{aval.notarefeicao.toFixed(1)}}
+          <img src="assets/imgs/icons/atend.png" alt="Ícone de atendimento." class="icone-nota">
+          {{aval.notaatendimento.toFixed(1)}}
+          <img src="assets/imgs/icons/ambiente.png" alt="Ícone de ambiente." class="icone-nota">
+          {{aval.notaambiente.toFixed(1)}}
+          <img src="assets/imgs/icons/preco.png" alt="Ícone de preco." class="icone-nota">
+          {{aval.notapreco.toFixed(1)}}
+        </ion-row>
+        <ion-row class="descricao" *ngIf="aval.descrirefeicao != null">{{aval.descrirefeicao}}</ion-row>
+        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento != null">
+          {{aval.descriatendimento}}</ion-row>
+        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente != null">
+          {{aval.descriambiente}}</ion-row>
+        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco != null" >
+          {{aval.descripreco}}</ion-row>
+          <ion-row class="descricao" *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco == null" >
+            Sem descrições...</ion-row>
+        
+      </ion-row>
+  
+    </div>
+    <div *ngIf="avaliacoes.length == 0">
       <p class="texto-marrom vazio">Não há avaliações para seu estabelecimento ainda.</p>
     </div>
   </section>

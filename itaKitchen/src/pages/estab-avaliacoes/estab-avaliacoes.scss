@@ -1,12 +1,4 @@
-page-minhas-avaliacoes {
-    ion-header {
-        .toolbar-md {
-            height: 70px !important;
-        }
-    }
-
-    
-
+page-estab-avaliacoes {
     .descricao {
         padding-top: 10px;
         display: -webkit-box;
@@ -27,14 +19,14 @@ page-minhas-avaliacoes {
         }
     }
 
-    ion-row.notas{
+    ion-row.notas {
         margin-top: 10px;
         color: #484848;
         align-items: center;
         font-weight: bold;
     }
 
-    ion-row.titulo-aval{
+    ion-row.titulo-aval {
         align-items: center;
         justify-content: center;
     }
@@ -43,10 +35,17 @@ page-minhas-avaliacoes {
         width: 8%;
         margin: 0 4%;
     }
+
     .estrela {
         width: 20px;
         height: 20px;
         margin: -2px 0 1px 0%;
+    }
+
+    .estrela-estab {
+        width: 25px;
+        height: 25px;
+        margin: 5px 0 1px 3%;
     }
 
     h5.nota {
@@ -57,19 +56,15 @@ page-minhas-avaliacoes {
     h5.nome {
         margin: 0;
     }
-}
 
-.scroll-content {
-    margin-top: 60px !important;
-}
+    ion-row.titulo{
+        margin-top: 10px;
+        h5{
+            margin: 0 !important;
+        }
 
-.logo.logo-menor {
-    width: 70%;
-}
-
-.card-aval {
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-    border-radius: 20px;
-    margin: 15px 0;
+        h5.texto-laranja{
+            text-align: end;
+        }
+    }
 }

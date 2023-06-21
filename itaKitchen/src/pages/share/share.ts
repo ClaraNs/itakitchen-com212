@@ -175,4 +175,14 @@ export class ShareService {
         var url = this.inicioURL + 'horario&id=' + id;
         return this.http.get(url).map(res => res);
     }
+
+    retornaEstabMaisBemAvaliados(){
+        var url = this.inicioURL + 'estabelecimentomaisbemavaliado';
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaUsuarioMaisAvaliador(){
+        var url = this.inicioURL + 'clientesmaisativos';
+        return this.http.get(url).map(res => res);
+    }
 }

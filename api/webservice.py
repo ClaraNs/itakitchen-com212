@@ -139,12 +139,6 @@ def fazLogin(item: dict):
     else:
         return result
 
-'''@app.get("/clienteporemail&email={email}")
-def retornaClienteEmail(email):
-    
-    retorno = retByValue("SELECT COUNT(c.id) FROM cliente as c WHERE c.email = %s", (email,))
-    print(retorno)
-    return retorno'''
 
 @app.get("/clienteporcpf&cpf={cpf}")
 def retornaClienteCpf(cpf):
@@ -684,7 +678,7 @@ def retornaAvaliacoesPorEstab(id):
 def retornaAvaliacoesPorEstab():
     
     retorno = retByValue("""
-                        SELECT sub.media, e.nome
+                        SELECT e.nome, sub.media 
                         FROM (
                             SELECT AVG(a.media) AS media, a.idEstab
                             FROM avaliacao AS a
@@ -692,12 +686,12 @@ def retornaAvaliacoesPorEstab():
                             ORDER BY AVG(a.media) DESC
                             LIMIT 5
                         ) AS sub
-                        JOIN estabelecimento AS e ON sub.idEstab = e.id;
+                        JOIN estabelecimento AS e ON sub.idEstab = e.id ORDER BY sub.media desc;
                         """)
 
     result = []
     for (nome, media) in retorno:
-        result.append((nome, round(media,2)))
+        result.append((nome, round(float(media),2)))
     return result
 
 @app.post("/criaravaliacao")

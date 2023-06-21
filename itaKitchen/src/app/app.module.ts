@@ -30,6 +30,7 @@ import { EditarHorarioPage } from '../pages/editar-horario/editar-horario';
 import { InformacoesEstabPage } from '../pages/informacoes-estab/informacoes-estab';
 import { VerAvaliacaoPage } from '../pages/ver-avaliacao/ver-avaliacao';
 import { EstabAvaliacoesPage } from '../pages/estab-avaliacoes/estab-avaliacoes';
+import { RelatoriosPage } from '../pages/relatorios/relatorios';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { EstabAvaliacoesPage } from '../pages/estab-avaliacoes/estab-avaliacoes'
     InformacoesEstabPage,
     VerAvaliacaoPage,
     EstabAvaliacoesPage,
+    RelatoriosPage
   ],
   imports: [
     BrowserModule,
@@ -86,6 +88,7 @@ import { EstabAvaliacoesPage } from '../pages/estab-avaliacoes/estab-avaliacoes'
     InformacoesEstabPage,
     VerAvaliacaoPage,
     EstabAvaliacoesPage,
+    RelatoriosPage
   ],
   providers: [
     StatusBar,

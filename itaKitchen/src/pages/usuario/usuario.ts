@@ -6,6 +6,7 @@ import { EditarClientePage } from '../editar-cliente/editar-cliente';
 import { MinhasAvaliacoesPage } from '../minhas-avaliacoes/minhas-avaliacoes';
 import { InicioPage } from '../inicio/inicio';
 import { NovaAvaliacaoPage } from '../nova-avaliacao/nova-avaliacao';
+import { RelatoriosPage } from '../relatorios/relatorios';
 /**
  * Generated class for the UsuarioPage page.
  *
@@ -33,6 +34,10 @@ export class UsuarioPage {
       this.clienteOuEstab = 1;
     }
     this.retornaNumAvaliacoes();
+  }
+
+  verDiagnosticos(){
+    this.navCtrl.push(RelatoriosPage, {}, {animate:true});
   }
 
   novaAvaliacao(){

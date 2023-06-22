@@ -1,3 +1,97 @@
 page-nova-avaliacao {
+    section {
+        text-align: start;
+        justify-content: center;
+        position: absolute;
+        top: 5%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
 
+    }
+
+    .btn-login{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+
+    h5 {
+        margin-left: 10% !important;
+
+    }
+
+    section.avaliacao {
+        margin: 0 10%;
+
+        h5 {
+            margin-left: 0 !important;
+
+
+            ion-icon {
+                margin-left: 8px !important;
+            }
+        }
+
+        ion-item {
+            margin: 16px 0 !important;
+            width: 100% !important;
+        }
+    }
+
+
+
+    div.div-texto-avaliacao {
+        margin-bottom: -10px;
+        margin-top: 10%;
+    }
+
+}
+
+.icon-avaliacao {
+    width: 8%;
+    margin-right: 8px;
+}
+
+.texto-avaliacao {
+    display: inline-block;
+    vertical-align: middle;
+
+    h4 {
+        margin-bottom: 8% !important;
+    }
+}
+
+ion-searchbar.barra-pesquisa {
+    padding-top: 1px;
+    border: 1px solid #b4b4b4;
+    background-color: #fafafa;
+    padding-bottom: 1px;
+    margin: 16px auto;
+    border-radius: 20px;
+    width: 80%;
+
+    input {
+        box-shadow: none !important;
+        border-radius: 20px !important;
+        background-color: transparent !important;
+        padding: 6px 20px 6px 43px !important;
+        font-size: 1.7rem !important;
+    }
+
+    .searchbar-search-icon {
+        left: 10px;
+    }
+
+
+}
+
+ion-navbar {
+    background-color: white;
+}
+
+.lista-estab {
+
+    margin: 0 5%;
 }

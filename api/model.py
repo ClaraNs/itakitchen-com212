@@ -21,6 +21,7 @@ class HorarioFuncionamento:
     def __init__(self, id, hDomingoInicio, hDomingoFim, hSegundaInicio,
     hSegundaFim, hTercaInicio, hTercaFim, hQuartaInicio, hQuartaFim,
     hQuintaInicio, hQuintaFim, hSextaInicio, hSextaFim, hSabadoInicio,hSabadoFim ):
+        self.id = id
         self.hDomingoInicio = hDomingoInicio
         self.hDomingoFim = hDomingoFim
         self.hSegundaInicio = hSegundaInicio

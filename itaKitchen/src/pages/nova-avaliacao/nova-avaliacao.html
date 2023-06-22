@@ -1,15 +1,118 @@
 <!--
-  Generated template for the NovaAvaliacaoPage page.
+  Generated template for the InicioPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>novaAvaliacao</ion-title>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+      </button>
+    </ion-buttons>
+    <ion-title class="inicio-title">
+      <img src="assets/imgs/itakitchen.svg" alt="Logo ItaKitchen" class="logo logo-menor">
+    </ion-title>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <section *ngIf="idestab == 0">
+    <h5 class="texto-marrom">Qual estabelecimento deseja avaliar?</h5>
+    <ion-searchbar [(ngModel)]="pesquisa" [showCancelButton]="shouldShowCancel" (ionInput)="pesquisaNome();"
+      (ionCancel)="pesquisa = null;" class="barra-pesquisa" placeholder="Buscar um estabelecimento...">
+    </ion-searchbar>
 
+    <ion-list class="lista-estab">
+      <ion-item *ngFor="let item of resultadoPesquisa" (click)="escolheEstab(item.id)">
+        <ion-avatar item-start>
+          <img [src]="item.fotourl">
+        </ion-avatar>
+        <h2>{{item.nome}}</h2>
+      </ion-item>
+    </ion-list>
+
+  </section>
+
+  <section *ngIf="idestab > 0" class="avaliacao">
+    <h5 class="texto-marrom">Nova avaliação para {{nomeestab}} <ion-icon name="md-swap"
+        (click)="novaPesquisa();"></ion-icon>
+    </h5>
+
+    <div class="div-texto-avaliacao">
+      <img src="assets/imgs/icons/refeicao.png" class="icon-avaliacao">
+      <div class="texto-avaliacao">
+        <h4 class="texto-marrom">O que achou da Refeição?</h4>
+      </div>
+    </div>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Nota (0.0 a 5.0)</ion-label>
+      <ion-input placeholder="Nota (0.0 a 5.0)" type="text" [(ngModel)]="notarefeicao" name="notarefeicao"
+        [brmasker]="{mask:'0.0', len:3, type:'num'}" (ngModelChange)="verificaNota('refeicao');"></ion-input>
+    </ion-item>
+    <ion-item class="input">
+      <ion-textarea label="Descreva sua experiência..." placeholder="Descreva sua experiência..." name="descrirefeicao"
+        [(ngModel)]="descrirefeicao"></ion-textarea>
+    </ion-item>
+
+
+    <div class="div-texto-avaliacao">
+      <img src="assets/imgs/icons/atend.png" class="icon-avaliacao">
+      <div class="texto-avaliacao">
+        <h4 class="texto-marrom">O que achou do Atendimento?</h4>
+      </div>
+    </div>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Nota (0.0 a 5.0)</ion-label>
+      <ion-input placeholder="Nota (0.0 a 5.0)" type="text" [(ngModel)]="notaatendimento" name="notaatendimento"
+        [brmasker]="{mask:'0.0', len:3, type:'num'}" (ngModelChange)="verificaNota('atend');"></ion-input>
+    </ion-item>
+    <ion-item class="input">
+      <ion-textarea label="Descreva sua experiência..." placeholder="Descreva sua experiência..." name="descriatendimento"
+        [(ngModel)]="descriatendimento"></ion-textarea>
+    </ion-item>
+
+    <div class="div-texto-avaliacao">
+      <img src="assets/imgs/icons/ambiente.png" class="icon-avaliacao">
+      <div class="texto-avaliacao">
+        <h4 class="texto-marrom">O que achou do Ambiente?</h4>
+      </div>
+    </div>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Nota (0.0 a 5.0)</ion-label>
+      <ion-input placeholder="Nota (0.0 a 5.0)" type="text" [(ngModel)]="notaambiente" name="notaambiente"
+        [brmasker]="{mask:'0.0', len:3, type:'num'}" (ngModelChange)="verificaNota('ambiente');"></ion-input>
+    </ion-item>
+    <ion-item class="input">
+      <ion-textarea label="Descreva sua experiência..." placeholder="Descreva sua experiência..." name="descriambiente"
+        [(ngModel)]="descriambiente"></ion-textarea>
+    </ion-item>
+
+    <div class="div-texto-avaliacao">
+      <img src="assets/imgs/icons/preco.png" class="icon-avaliacao">
+      <div class="texto-avaliacao">
+        <h4 class="texto-marrom">O que achou do Preço?</h4>
+      </div>
+    </div>
+
+    <ion-item class="input">
+      <ion-label color="primary" hidden>Nota (0.0 a 5.0)</ion-label>
+      <ion-input placeholder="Nota (0.0 a 5.0)" type="text" [(ngModel)]="notapreco" name="notapreco"
+        [brmasker]="{mask:'0.0', len:3, type:'num'}" (ngModelChange)="verificaNota('preco');"></ion-input>
+    </ion-item>
+    <ion-item class="input">
+      <ion-textarea label="Descreva sua experiência..." placeholder="Descreva sua experiência..." name="descripreco"
+        [(ngModel)]="descripreco"></ion-textarea>
+    </ion-item>
+
+    <button ion-button class="btn-login" (click)="criarAvaliacao();">
+      Concluir <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login">
+    </button>
+
+  </section>
 </ion-content>

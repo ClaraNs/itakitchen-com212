@@ -86,11 +86,12 @@ export class LoginPage {
                 email: data[0].email,
                 nome: data[0].nome,
                 cnpj: data[0].cnpj,
+                descricao: data[0].descricao,
                 contato: data[0].contato,
                 foto: data[0].foto,
-                categoria: data[0].categoria,
-                endereco: data[0].endereco,
-                horario: data[0].horario
+                idendereco: data[0].idEndereco,
+                idhorariofunc: data[0].idHorario,
+                idcategoria: data[0].idCategoria,
               };
               this.storage.set("email", this.email);
               this.storage.set("senha", this.senha);

@@ -52,7 +52,7 @@ export class ShareService {
     excluirEstab(idestab) {
         var url = this.inicioURL + 'deletaestabelecimento&id=' + idestab;
         return this.http.delete(url).map(res => res);
-    }
+    }   
 
     editarCliente(idcli, campos, valores) {
         var url = this.inicioURL + 'atualizacliente&id=' + idcli;
@@ -63,6 +63,35 @@ export class ShareService {
         }
         return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
     }
+
+    editarEstab(id, campos, valores) {
+        var url = this.inicioURL + 'atualizaestabelecimento&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+    editarEndereco(id, campos, valores) {
+        var url = this.inicioURL + 'atualizaendereco&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+    editarHorario(id, campos, valores) {
+        var url = this.inicioURL + 'atualizahorario&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+
 
     retornaEstab() {
         var url = this.inicioURL + 'estabelecimento';
@@ -82,6 +111,11 @@ export class ShareService {
     verificarCep(cep) {
         const url = `https://viacep.com.br/ws/${cep}/json/`;
         return this.http.get(url);
+    }
+
+    retornaPesquisaEstabelecimentoPorNome(pesquisa) {
+        var url = this.inicioURL + 'estabelecimentopornome&pesquisa=' + pesquisa;
+        return this.http.get(url).map(res => res);
     }
 
     cadastrarEstabelecimento(estab){
@@ -121,5 +155,63 @@ export class ShareService {
 
     }
 
-    d
+    criarAvaliacao(idusuario, idestab, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco){
+        var url = this.inicioURL + 'criaravaliacao';
+        var body = {
+            "idcli": idusuario,
+            "idestab": idestab,
+            "notarefeicao": notarefeicao,
+            "descrirefeicao": descrirefeicao,
+            "notaatendimento": notaatendimento,
+            "descriatendimento": descriatendimento,
+            "notaambiente": notaambiente,
+            "descriambiente": descriambiente,
+            "notapreco": notapreco,
+            "descripreco": descripreco,
+
+        };
+
+        return this.http.post(url, body).map(res => res);
+
+    }
+
+    retornaAvaliacoesCliente(id){
+        var url = this.inicioURL + 'avaliacaocliente&id=' + id;
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaAvaliacoesEstab(id){
+        var url = this.inicioURL + 'avaliacaoporestab&id=' + id;
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaEstabelecimentoPorID(id){
+        var url = this.inicioURL + 'estabelecimento&id=' + id;
+        return this.http.get(url).map(res => res);
+    }
+
+    excluirAvaliacao(id) {
+        var url = this.inicioURL + 'deletaavaliacao&id=' + id;
+        return this.http.delete(url).map(res => res);
+    }
+
+    retornaEndereco(id){
+        var url = this.inicioURL + 'endereco&id=' + id;
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaHorario(id){
+        var url = this.inicioURL + 'horario&id=' + id;
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaEstabMaisBemAvaliados(){
+        var url = this.inicioURL + 'estabelecimentomaisbemavaliado';
+        return this.http.get(url).map(res => res);
+    }
+
+    retornaUsuarioMaisAvaliador(){
+        var url = this.inicioURL + 'clientesmaisativos';
+        return this.http.get(url).map(res => res);
+    }
 }

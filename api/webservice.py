@@ -1,3 +1,5 @@
+#python -m uvicorn webservice:app --reload
+
 from fastapi import FastAPI
 import psycopg2
 import model
@@ -19,7 +21,7 @@ app.add_middleware(
 )
 
 
-conexao = "host='localhost' dbname='itakitchen' user='postgres' password='postgres'"
+conexao = "host='localhost' dbname='itakitchen' user='postgres' password='lulu'"
 
 
 def image_to_base64(image_path):
@@ -137,12 +139,6 @@ def fazLogin(item: dict):
     else:
         return result
 
-'''@app.get("/clienteporemail&email={email}")
-def retornaClienteEmail(email):
-    
-    retorno = retByValue("SELECT COUNT(c.id) FROM cliente as c WHERE c.email = %s", (email,))
-    print(retorno)
-    return retorno'''
 
 @app.get("/clienteporcpf&cpf={cpf}")
 def retornaClienteCpf(cpf):
@@ -301,12 +297,7 @@ def retornaUsuarioEmail(email):
     print(retorno)
     return retorno
 
-'''@app.get("/estabelecimentoporemail&email={email}")
-def retornaEstabelecimentoEmail(email):
-    
-    retorno = retByValue("SELECT COUNT(e.id) FROM estabelecimento as e WHERE e.email = %s", (email,))
-    print(retorno)
-    return retorno'''
+
 
 @app.get("/estabelecimentoporcnpj&cnpj={cnpj}")
 def retornaEstabelecimentoCnpj(cnpj):
@@ -315,12 +306,33 @@ def retornaEstabelecimentoCnpj(cnpj):
     print(retorno)
     return retorno
 
+@app.get("/estabelecimentopornome&pesquisa={pesquisa}")
+def retornaEstabelecimentoPorNome(pesquisa):
+    
+    pesquisa = pesquisa + '%'
+    retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao," +
+                  "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e WHERE e.nome ilike %s", (pesquisa,))
+    print(retorno)
+    result = []
+    for id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
+        if foto is None:
+            fotocerta = ""
+        else:
+            fotocerta = bytea_to_base64(foto)
+
+        if "descricao" == None:
+            descricao = ""
+            
+        result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
+    
+    return result
+
 @app.get("/estabelecimento")
 def retornaEstabelecimento():
     
     
     retorno = ret("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao," +
-                  "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e")
+                  "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e order by e.nome")
 
     result = []
     for id, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
@@ -343,6 +355,7 @@ def retornaEstabelecimentoPorId(id):
                   "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e WHERE e.id = %s", (id,))
 
     result = []
+    print(retorno)
     for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:
         if foto is None:
             fotocerta = ""
@@ -408,8 +421,12 @@ def deletaEstabelecimento(id):
 def atualizaEstabelecimento(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -450,7 +467,7 @@ def estabelecimentoPorCategoria(categoria):
 
 # Consulta por nome
 @app.get("/estabelecimentopornome&nome={nome}")
-def estabelecimentoPorCategoria(nome):
+def estabelecimentoPorNomeInteiro(nome):
 
     retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, " +
                   "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e " +  
@@ -482,7 +499,7 @@ def retornaEndereco():
 @app.get("/endereco&id={id}")
 def retornaEnderecoPorId(id):
     
-    retorno = retByValue("SELECT e.id, e.rua, e.numero, e.complem, e.bairro, e.cep FROM endereco as e WHERE c.id = %s", (id,))
+    retorno = retByValue("SELECT e.id, e.rua, e.numero, e.complem, e.bairro, e.cep FROM endereco as e WHERE e.id = %s", (id,))
 
     result = []
     for idn, rua, numero, complem, bairro, cep in retorno:
@@ -490,37 +507,17 @@ def retornaEnderecoPorId(id):
     
     return result
 
-'''@app.post("/criarendereco")
-def criaEndereco(item: dict):
-    
-    retorno = alter("INSERT INTO endereco (rua, numero, complem, bairro, cep)"+ 
-                    "VALUES (%s, %s, %s, %s, %s)", (item["rua"], item["numero"], item["complem"], item["bairro"], item["cep"]))
-
-    if(retorno == 'Sucesso'):
-        result = 1
-    else:
-        result = 0
-    
-    return result
-
-@app.delete("/deletaendereco&id={id}")
-def deletaEndereco(id):
-    
-    retorno = alter("DELETE FROM endereco WHERE id = %s", (id,))
-
-    if(retorno == 'Sucesso'):
-        result = 1
-    else:
-        result = 0
-    
-    return result'''
 
 @app.put("/atualizaendereco&id={id}&campos={campos}&valores={valores}")
 def atualizaEndereco(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -572,43 +569,17 @@ def retornaHorarioPorId(id):
     return result
 
 
-'''@app.post("/criarhorario")
-def criaHorario(item: dict):
-    
-    retorno = alter("INSERT INTO horariofuncionamento (hDomingoInicio, hDomingoFim, hSegundaInicio, " +
-        "hSegundaFim, hTercaInicio, hTercaFim, hQuartaInicio, hQuartaFim, " + 
-        "hQuintaInicio, hQuintaFim, hSextaInicio, hSextaFim, hSabadoInicio,hSabadoFim)" + 
-        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
-        (item["hdomingoinicio"], item["hdomingofim"], item["hsegundainicio"], item["hsegundafim"], 
-         item["htercainicio"], item["htercafim"], item["hquartainicio"], item["hquartafim"],
-         item["hquintainicio"], item["hquintafim"], item["hsextainicio"], item["hsextafim"],
-         item["hsabadoinicio"], item["hsabadofim"]))
-
-    if(retorno == 'Sucesso'):
-        result = 1
-    else:
-        result = 0
-    
-    return result
-
-@app.delete("/deletahorario&id={id}")
-def deletaHorario(id):
-    
-    retorno = alter("DELETE FROM horariofuncionamento WHERE id = %s", (id,))
-
-    if(retorno == 'Sucesso'):
-        result = 1
-    else:
-        result = 0
-    
-    return result'''
 
 @app.put("/atualizahorario&id={id}&campos={campos}&valores={valores}")
 def atualizaHorario(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -635,7 +606,7 @@ def retornaAvaliacao():
     
     
     retorno = ret("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
-                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a")
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a order by a.dataehora desc")
 
     result = []
     for (id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
@@ -643,7 +614,7 @@ def retornaAvaliacao():
                  notaAmbiente, descriAmbiente,
                  notaPreco, descriPreco,
                  dataeHora) in retorno:
-        result.append(model.Avaliacao(id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+        result.append(model.Avaliacao(id, idCli, idEstab, round(media,2), notaRefeicao, descriRefeicao,
                                       notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
                                       notaPreco, descriPreco, dataeHora))
     
@@ -661,7 +632,7 @@ def retornaAvaliacaoPorId(id):
                  notaAmbiente, descriAmbiente,
                  notaPreco, descriPreco,
                  dataeHora) in retorno:
-        result.append(model.Avaliacao(id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+        result.append(model.Avaliacao(id, idCli, idEstab, round(media,2), notaRefeicao, descriRefeicao,
                                       notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
                                       notaPreco, descriPreco, dataeHora))
     return result
@@ -671,7 +642,7 @@ def retornaAvaliacaoPorId(id):
 def retornaAvaliacaoPorCliente(id):
     
     retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
-                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idcli = %s", (id,))
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idcli = %s order by a.dataehora desc", (id,))
 
     result = []
     for (id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
@@ -679,7 +650,7 @@ def retornaAvaliacaoPorCliente(id):
                  notaAmbiente, descriAmbiente,
                  notaPreco, descriPreco,
                  dataeHora) in retorno:
-        result.append(model.Avaliacao(id, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+        result.append(model.Avaliacao(id, idCli, idEstab, round(media,2), notaRefeicao, descriRefeicao,
                                       notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
                                       notaPreco, descriPreco, dataeHora))
     return result
@@ -694,14 +665,14 @@ def retornaNotaENumAvaliacoesPorEstab(id):
         if(media == None):
             result.append([num, 0])
         else:
-            result.append([num, media])
+            result.append([num, round(media,2)])
     return result
 
 @app.get("/avaliacaoporestab&id={id}")
 def retornaAvaliacoesPorEstab(id):
     
     retorno = retByValue("SELECT a.id, a.idcli, a.idestab, a.media, a.notarefeicao, a.descrirefeicao, a.notaatendimento, a.descriatendimento, " +
-                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idestab = %s", (id,))
+                  " a.notaambiente, a.descriambiente, a.notapreco, a.descripreco, a.dataehora FROM avaliacao as a WHERE a.idestab = %s order by a.dataehora desc", (id,))
 
     result = []
     for (idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
@@ -709,7 +680,7 @@ def retornaAvaliacoesPorEstab(id):
                  notaAmbiente, descriAmbiente,
                  notaPreco, descriPreco,
                  dataeHora) in retorno:
-        result.append(model.Avaliacao(idn, idCli, idEstab, media, notaRefeicao, descriRefeicao,
+        result.append(model.Avaliacao(idn, idCli, idEstab, round(media,2), notaRefeicao, descriRefeicao,
                                       notaAtendimento, descriAtendimento, notaAmbiente, descriAmbiente,
                                       notaPreco, descriPreco, dataeHora))
     return result
@@ -719,7 +690,7 @@ def retornaAvaliacoesPorEstab(id):
 def retornaAvaliacoesPorEstab():
     
     retorno = retByValue("""
-                        SELECT sub.media, e.nome
+                        SELECT e.nome, sub.media 
                         FROM (
                             SELECT AVG(a.media) AS media, a.idEstab
                             FROM avaliacao AS a
@@ -727,12 +698,12 @@ def retornaAvaliacoesPorEstab():
                             ORDER BY AVG(a.media) DESC
                             LIMIT 5
                         ) AS sub
-                        JOIN estabelecimento AS e ON sub.idEstab = e.id;
+                        JOIN estabelecimento AS e ON sub.idEstab = e.id ORDER BY sub.media desc;
                         """)
 
     result = []
     for (nome, media) in retorno:
-        result.append((nome, media))
+        result.append((nome, round(float(media),2)))
     return result
 
 @app.post("/criaravaliacao")
@@ -787,8 +758,12 @@ def deletaAvaliacao(id):
 def atualizaAvaliacao(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):

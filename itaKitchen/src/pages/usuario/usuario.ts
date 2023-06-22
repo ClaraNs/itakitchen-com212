@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ShareService } from '../share/share';
 import { Storage } from '@ionic/storage';
 import { EditarClientePage } from '../editar-cliente/editar-cliente';
@@ -7,6 +7,9 @@ import { MinhasAvaliacoesPage } from '../minhas-avaliacoes/minhas-avaliacoes';
 import { InicioPage } from '../inicio/inicio';
 import { NovaAvaliacaoPage } from '../nova-avaliacao/nova-avaliacao';
 import { RelatoriosPage } from '../relatorios/relatorios';
+import { EditarEstabPage } from '../editar-estab/editar-estab';
+import { EditarEnderecoPage } from '../editar-endereco/editar-endereco';
+import { EditarHorarioPage } from '../editar-horario/editar-horario';
 /**
  * Generated class for the UsuarioPage page.
  *
@@ -24,24 +27,94 @@ export class UsuarioPage {
   usuario: any = null;
   imagemURL: any = null;
   numavaliacoes: any = 0;
-  clienteOuEstab:any = 0; // 0 - cliente 1 - estabelecimento
+  clienteOuEstab: any = 0; // 0 - cliente 1 - estabelecimento
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private share: ShareService,
     private alertCtrl: AlertController, private toastCtrl: ToastController, public storage: Storage) {
     this.usuario = this.navParams.get("usuario");
     this.imagemURL = 'data:image/png;base64,' + this.usuario.foto;
-    if(this.usuario.cnpj != undefined){
+    if (this.usuario.cnpj != undefined) {
       this.clienteOuEstab = 1;
     }
     this.retornaNumAvaliacoes();
   }
 
-  verDiagnosticos(){
-    this.navCtrl.push(RelatoriosPage, {}, {animate:true});
+
+  editarEstab() {
+    this.share.retornaEstabelecimentoPorID(this.usuario.id).subscribe((data: any) => {
+      let estab = {
+        id: data[0].id,
+        email: data[0].email,
+        nome: data[0].nome,
+        cnpj: data[0].cnpj,
+        descricao: data[0].descricao,
+        contato: data[0].contato,
+        foto: data[0].foto,
+        idendereco: data[0].idEndereco,
+        idhorariofunc: data[0].idHorario,
+        idcategoria: data[0].idCategoria,
+      };
+
+      this.navCtrl.push(EditarEstabPage, { estab: estab }, { animate: true });
+    });
+
   }
 
-  novaAvaliacao(){
-    this.navCtrl.push(NovaAvaliacaoPage, {usuario: this.usuario});
+  editarEndereco() {
+    this.share.retornaEndereco(this.usuario.idendereco).subscribe((data4: any) => {
+      let x = data4[0];
+      let endereco = {
+        id: x.id,
+        rua: x.rua,
+        bairro: x.bairro,
+        numero: x.numero,
+        cep: x.cep,
+        complemento: x.complem,
+        textocep: x.cep.slice(0, 5) + '-' + x.cep.slice(5),
+      }
+      this.navCtrl.push(EditarEnderecoPage, { endereco: endereco }, { animate: true });
+    });
+
+
+
+  }
+
+  editarHorario() {
+    this.share.retornaHorario(this.usuario.idhorariofunc).subscribe((data3: any) => {
+      let y = data3[0];
+      let horario = {
+        id: y.id,
+        hdomingoinicio: this.formataHora(y.hDomingoInicio),
+        hdomingofim: this.formataHora(y.hDomingoFim),
+        hsegundainicio: this.formataHora(y.hSegundaInicio),
+        hsegundafim: this.formataHora(y.hSegundaFim),
+        htercainicio: this.formataHora(y.hTercaInicio),
+        htercafim: this.formataHora(y.hTercaFim),
+        hquartainicio: this.formataHora(y.hQuartaInicio),
+        hquartafim: this.formataHora(y.hQuartaFim),
+        hquintainicio: this.formataHora(y.hQuintaInicio),
+        hquintafim: this.formataHora(y.hQuintaFim),
+        hsextainicio: this.formataHora(y.hSextaInicio),
+        hsextafim: this.formataHora(y.hSextaFim),
+        hsabadoinicio: this.formataHora(y.hSabadoInicio),
+        hsabadofim: this.formataHora(y.hSabadoFim)
+      }
+
+      this.navCtrl.push(EditarHorarioPage, { horario: horario }, { animate: true });
+    });
+
+  }
+
+  formataHora(hora){
+    return hora.slice(0,2) + ':' + hora.slice(3, 5);
+  }
+
+  verDiagnosticos() {
+    this.navCtrl.push(RelatoriosPage, {}, { animate: true });
+  }
+
+  novaAvaliacao() {
+    this.navCtrl.push(NovaAvaliacaoPage, { usuario: this.usuario });
   }
 
   minhasAvaliacoes() {

@@ -64,6 +64,35 @@ export class ShareService {
         return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
     }
 
+    editarEstab(id, campos, valores) {
+        var url = this.inicioURL + 'atualizaestabelecimento&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+    editarEndereco(id, campos, valores) {
+        var url = this.inicioURL + 'atualizaendereco&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+    editarHorario(id, campos, valores) {
+        var url = this.inicioURL + 'atualizahorario&id=' + id;
+        var body = {
+            "id": id,
+            "campos": campos,
+            "valores": valores
+        }
+        return this.http.put(url + "&campos=" + campos + "&valores=" + valores, body).map(res => res);
+    }
+
+
     retornaEstab() {
         var url = this.inicioURL + 'estabelecimento';
         return this.http.get(url).map(res => res);

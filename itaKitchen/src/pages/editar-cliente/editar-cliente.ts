@@ -107,12 +107,6 @@ export class EditarClientePage {
       this.campos += "tipo,";
       this.valores += this.tipocli + "!";
     }
-
-    if(this.img != null){
-      valido = true;
-      this.campos += "foto,";
-      this.valores += this.img + "!";
-    }
     
     return valido;
   }

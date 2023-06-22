@@ -58,6 +58,7 @@ export class RelatoriosPage {
           scales: {
             yAxes: [{
               ticks: {
+                stepSize: 0.5,
                 beginAtZero: true
               }
             }]
@@ -98,6 +99,7 @@ export class RelatoriosPage {
           scales: {
             yAxes: [{
               ticks: {
+                stepSize: 1,
                 beginAtZero: true
               }
             }]

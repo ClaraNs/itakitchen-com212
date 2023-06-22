@@ -421,8 +421,12 @@ def deletaEstabelecimento(id):
 def atualizaEstabelecimento(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -508,8 +512,12 @@ def retornaEnderecoPorId(id):
 def atualizaEndereco(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -566,8 +574,12 @@ def retornaHorarioPorId(id):
 def atualizaHorario(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):
@@ -746,8 +758,12 @@ def deletaAvaliacao(id):
 def atualizaAvaliacao(id, campos, valores):
     
     print(tuple(campos.split(",")))
-    campos = tuple(campos.split(","))
-    valores = tuple(valores.split(","))
+    campos = campos.split(",")
+    campos.pop()
+    campos = tuple(campos)
+    valores = valores.split(",")
+    valores.pop()
+    valores = tuple(valores)
     
     stratt = ""
     for i in range(len(campos)):

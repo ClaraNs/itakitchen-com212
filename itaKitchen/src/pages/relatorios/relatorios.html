@@ -21,13 +21,22 @@
 <ion-content padding>
   <section>
     <h3 class="texto-marrom"><span class="texto-laranja">Estabelecimentos</span> melhores avaliados do mês!</h3>
-  
-    <h5 class="texto-marrom" *ngFor="let estab of estabs; let i = index">{{i+1}}º {{estab.nome}} - Nota: {{estab.media}}</h5>
-    <canvas #barCanvasEstab></canvas>
+
+    <h5 class="texto-marrom" *ngFor="let estab of estabs; let i = index">
+      <span class="texto-laranja">{{i+1}}º</span> {{estab.nome}} - Nota: {{estab.media}}
+    </h5>
+    <ion-row class="card-aval">
+      <canvas #barCanvasEstab></canvas>
+    </ion-row>
 
     <h3 class="texto-marrom"><span class="texto-laranja">Usuários</span> que mais avaliaram no mês!</h3>
-    
-    <h5 class="texto-marrom" *ngFor="let user of usuarios; let i = index">{{i+1}}º {{user.nome}} - {{user.qtd}} avaliações</h5>
-    <canvas #barCanvasUsuario></canvas>
+
+    <h5 class="texto-marrom" *ngFor="let user of usuarios; let i = index">
+      <span class="texto-laranja">{{i+1}}º</span> {{user.nome}} - {{user.qtd}} avaliações
+    </h5>
+    <ion-row class="card-aval">
+      <canvas #barCanvasUsuario></canvas>
+    </ion-row>
+
   </section>
 </ion-content>

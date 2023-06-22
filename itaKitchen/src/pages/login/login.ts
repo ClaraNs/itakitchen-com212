@@ -86,6 +86,7 @@ export class LoginPage {
                 email: data[0].email,
                 nome: data[0].nome,
                 cnpj: data[0].cnpj,
+                descricao: data[0].descricao,
                 contato: data[0].contato,
                 foto: data[0].foto,
                 idendereco: data[0].idEndereco,

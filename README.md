@@ -3,19 +3,18 @@ Sistema de avaliação de restaurantes de Itajubá.
 
 Para rodar a api: python -m uvicorn webservice:app --reload
 
-precisa de ionic 3.20.0
-e node 14.18.1
-
-# Instalação Windows
 Recursos necessários:
 Postgresql 12
 Python 3
-NVM para Windows
+NVM
 Node 14.18.1
 Ionic 3.20.0
 Fast API
 Uvicorn
 Psycopg2
+
+
+# Instalação Windows
 
 Para instalar o PostgreSQL 12 e o PgAdmin acesse o link abaixo e realize a instalação. (Obs: Guardar a senha que colocar no installer pois utilizará ela futuramente)
 

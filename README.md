@@ -4,13 +4,21 @@ Sistema de avaliação de restaurantes de Itajubá.
 Para rodar a api: python -m uvicorn webservice:app --reload
 
 Recursos necessários:
+
 Postgresql 12
+
 Python 3
+
 NVM
+
 Node 14.18.1
+
 Ionic 3.20.0
+
 Fast API
+
 Uvicorn
+
 Psycopg2
 
 

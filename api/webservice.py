@@ -836,3 +836,53 @@ def retornaEstabelecimentosPorCategoria(id: int):
         estabelecimentos.append(estabelecimento)
     
     return estabelecimentos
+
+#Resetar senha
+@app.post("/pedido_recuperacao_senha")
+def reset_password_request(item: dict):
+    usuariotrue = retornaUsuarioEmail(item["email"])
+    if usuariotrue == 0:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    usuario = item["email"]
+    # Gera token de redefinição de senha
+    token = gerar_token(item["email"])
+    tipoUsuario = hasattr(item, "cnpj")
+    if tipoUsuario is False:
+            retorno = alter("UPDATE cliente SET token = %s WHERE email = %s",(token, usuario))
+    else:
+            retorno = alter("UPDATE estabelecimento SET token = %s WHERE email = %s",(token, usuario))
+    result = retByValue(retorno)
+    
+    if result:
+        enviar_email(item["email"], token)
+        return {"message": "Token salvo e email enviado"}
+    else:
+        raise HTTPException(status_code=500, detail="Erro ao salvar token")
+
+
+
+@app.post("/alteracao_senha")
+def resetar_senha(item: dict):
+    # Verifica se o token é válido
+
+    emailComToken = retByValue( "SELECT email FROM ("
+                         "SELECT email FROM cliente WHERE token = %s "
+                         "UNION ALL "
+                         "SELECT email FROM estabelecimento WHERE token = %s "
+                         ") AS combined", (item["token"], item["token"]))
+    if emailComToken[0][0] != item["email"]:
+        raise HTTPException(status_code=400, detail=f"Token inválido ou expirado. emailComToken: {emailComToken[0]}, item['email']: {item['email']}")
+
+    presencaCPF = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
+
+    # Redefine a senha do usuário
+    if presencaCPF:
+        retorno = alter("UPDATE cliente SET senha = crypt(%s, gen_salt('bf')) WHERE email = %s",(item["senha"], item["email"]))
+    else:
+        retorno = alter("UPDATE estabelecimento SET senha = crypt(%s, gen_salt('bf')) WHERE email= %s",( item["senha"], item["email"]))
+    result = retByValue(retorno)
+
+    if result:
+        return {"message": "Senha redefinida com sucesso"}
+    else:
+        raise HTTPException(status_code=500, detail="Erro ao redefinir senha")

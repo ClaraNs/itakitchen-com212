@@ -1,8 +1,6 @@
 # itakitchen-com212
 Sistema de avaliação de restaurantes de Itajubá.
 
-Para rodar a api: python -m uvicorn webservice:app --reload
-
 Recursos necessários:
 
 Postgresql 12
@@ -15,14 +13,46 @@ Node 14.18.1
 
 Ionic 3.20.0
 
-Fast API
-
 Uvicorn
 
 Psycopg2
 
+# Preparação do ambiente no Linux
 
-# Instalação Windows
+Linha de comando para instalar python3
+
+>$ sudo apt install python3
+
+Linha de comando para instalar NVM
+
+>$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+Linha de comando para instalar node 14.18.1
+
+>$ nvm install 14.18.1
+
+Linha de comando para instalar o Ionic 3.20.0
+
+>$ npm install -g ionic@3.20.0
+
+Linha de comando para instalar o pip
+
+>$ sudo apt install python3-pip
+
+Linha de comando para instalar o fastapi
+
+>$ pip install fastapi
+
+Linha de comando para instalar o uvicorn
+
+>$ pip install uvicorn
+
+Linha de comando para instalar o psycopg2
+
+>$ pip install psycopg2
+
+
+# Preparação do ambiente no Windows
 
 Para instalar o PostgreSQL 12 e o PgAdmin acesse o link abaixo e realize a instalação. (Obs: Guardar a senha que colocar no installer pois utilizará ela futuramente)
 
@@ -73,3 +103,6 @@ Passo 3:Com o banco criado, clique no botão “PSQL Tool” e insira o comando:
 Passo 4:Abra um Prompt de Comando na pasta “api” do projeto e insira o comando >python -m uvicorn webservice:app --reload. Esse comando inicia a API.
 
 Passo 5:Abra um Prompt de Comando na pasta “itakitchen” do projeto e insira o comando >ionic serve, pressione enter e logo em seguida digite “y” para baixar as dependências do projeto. Isso inicia a aplicação no navegador e está pronta para uso.
+
+
+Para rodar a api: python -m uvicorn webservice:app --reload

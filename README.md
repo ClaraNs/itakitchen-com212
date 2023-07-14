@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="itaKitchen/src/assets/imgs/logo-nome-e-texto-lado.svg" alt="Logo do projeto" />
+</p>
+
 # ItaKitchen
 Sistema de avaliação de restaurantes de Itajubá.
 

@@ -60,7 +60,12 @@
 
 - Pesquisa e Visualização de Avaliações: Os usuários podem pesquisar e visualizar avaliações de estabelecimentos específicos, ajudando-os a tomar decisões informadas sobre onde comer.
 
-# Preparação do Ambiente no Linux
+# ⚡ Demonstração
+
+# 🗝️ Acesso ao Projeto
+
+
+<h3>Preparação do Ambiente no Linux</h3>
 
 Linha de comando para instalar python3
 
@@ -94,7 +99,8 @@ Linha de comando para instalar o psycopg2
 
 >pip install psycopg2
 
-# Iniciando o projeto no Linux:
+<h3>Iniciando Proejto no Linux</h3>
+
 Inicie o banco de dados e corrija em webservice.py a senha de acesso do PostgreSQL
 
 Abra um terminal na pasta api e digite a seguinte linha para inciar o webservice(digite python3 se python não funcionar)
@@ -107,7 +113,7 @@ Abra um terminal na pasta itaKitchen e digite:
 
 Feito isso a página deve carregar e o projeto, navegável.
 
-# Preparação do Ambiente no Windows
+<h3>Preparação do Ambiente no Windows</h3>
 
 Para instalar o PostgreSQL 12 e o PgAdmin acesse o link abaixo e realize a instalação. (Obs: Guardar a senha que colocar no installer pois utilizará ela futuramente)
 
@@ -145,7 +151,7 @@ Para instalar o Psycopg2 insira o comando abaixo.
 
 >pip install psycopg2
 
- # Iniciando o Projeto no Windows:
+<h3>Iniciando o Projeto no Windows</h3>
 
 Passo 1: Para a execução da aplicação acesse os arquivos do projeto, e na pasta “api” acesse o arquivo “webservice.py” e na linha 24 modifique o password para a senha utilizada na instalação do PostgreSQL e salve o arquivo.
 
@@ -162,3 +168,9 @@ Passo 5: Abra um Prompt de Comando na pasta “itakitchen” do projeto e insira
 
 Para rodar a api: 
 > python -m uvicorn webservice:app --reload
+
+# 🔧 Tecnologias Utilizadas
+
+# ☕ Pessoas Desenvolvedoras do Projeto
+
+

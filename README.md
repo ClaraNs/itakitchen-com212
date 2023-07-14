@@ -45,11 +45,11 @@
 * [Funcionalidades Principais](#funcionalidades-principais)
 * [Demonstração](#demonstracao)
 * [Acesso ao Projeto](#acesso-ao-projeto)
-* [Tecnologias utilizadas](#tecnologias-utilizadas)
+* [Tecnologias Utilizadas](#tecnologias-utilizadas)
 * [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras)
 
 
-
+<a name="funcionalidades-principais"></a>
 # ⚙️ Funcionalidades Principais
 
 - Cadastro de Estabelecimentos: Os proprietários de restaurantes podem se cadastrar no sistema para terem seus estabelecimentos avaliados pelos usuários.
@@ -60,12 +60,14 @@
 
 - Pesquisa e Visualização de Avaliações: Os usuários podem pesquisar e visualizar avaliações de estabelecimentos específicos, ajudando-os a tomar decisões informadas sobre onde comer.
 
+<a name="demonstracao"></a>
 # ⚡ Demonstração
 
 Uma demonstração do webapp em funcionamento:
 
 ![2023-07-14-13-42-00](https://github.com/ClaraNs/itakitchen-com212/assets/107441152/4a621af9-d768-446c-b950-3dc2045a3879)
 
+<a name="acesso-ao-projeto"></a>
 # 🗝️ Acesso ao Projeto
 
 <h3>Preparação do Ambiente no Linux</h3>
@@ -172,6 +174,7 @@ Passo 5: Abra um Prompt de Comando na pasta “itakitchen” do projeto e insira
 Para rodar a api: 
 > python -m uvicorn webservice:app --reload
 
+<a name="tecnologias-utilizadas"></a>
 # 🔧 Tecnologias Utilizadas
 
 - *PostgreSQL 12:* Banco de dados relacional utilizado para armazenar os dados do projeto.
@@ -192,6 +195,7 @@ Para rodar a api:
 
 - *Uvicorn:* Servidor ASGI de alto desempenho, utilizado para implantar o webservice desenvolvido em Python.
 
+<a name="pessoas-desenvolvedoras"></a>
 # ☕ Pessoas Desenvolvedoras do Projeto
 
 A equipe de desnvolvimento foi composta por quatro pessoas:

@@ -5,6 +5,8 @@ import psycopg2
 import model
 import base64 
 from datetime import datetime
+from token_gen import gerar_token
+from envio_email import enviar_email
 
 from fastapi.middleware.cors import CORSMiddleware
 

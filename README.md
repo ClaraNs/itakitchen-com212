@@ -1,4 +1,4 @@
-# itakitchen-com212
+# ItaKitchen
 Sistema de avaliação de restaurantes de Itajubá.
 
 Recursos necessários:

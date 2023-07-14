@@ -8,6 +8,7 @@ CREATE TABLE cliente (
     foto bytea,
     tipo varchar(50) not null,
 	dataeHoraCriacao timestamp not null,
+	token varchar(255),
     CHECK (tipo = 'Morador' OR tipo = 'Estudante' OR tipo = 'Republica')
 );
 
@@ -78,6 +79,7 @@ CREATE TABLE avaliacao (
     notaPreco decimal not null,
 	descriPreco text,
     dataeHora timestamp not null,
+	token varchar(255),
 	FOREIGN KEY(idCli)
 		REFERENCES cliente(id),
 	FOREIGN KEY(idEstab) 

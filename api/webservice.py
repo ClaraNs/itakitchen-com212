@@ -806,3 +806,32 @@ def retornaAvaliacaoPorId(id):
     for (idn, descricao) in retorno:
         result.append(model.Categoria(idn, descricao))
     return result
+
+@app.get("/categoria/{id}/estabelecimentos")
+def retornaEstabelecimentosPorCategoria(id: int):
+    # Consulta para obter os estabelecimentos da categoria selecionada
+    query = "SELECT e.id, e.nome, a.media, a.notaRefeicao, a.notaAtendimento, a.notaAmbiente, a.notaPreco " \
+            "FROM estabelecimento e " \
+            "INNER JOIN avaliacao a ON e.id = a.idestab " \
+            "WHERE e.idcategoria = %s"
+    
+    # Executa a consulta passando o ID da categoria
+    retorno = retByValue(query, (id,))
+    
+    # Cria uma lista para armazenar os resultados
+    estabelecimentos = []
+    
+    # Itera sobre os resultados da consulta e cria objetos Estabelecimento
+    for row in retorno:
+        estabelecimento = {
+            "id": row[0],
+            "nome": row[1],
+            "media": row[2],
+            "notaRefeicao": row[3],
+            "notaAtendimento": row[4],
+            "notaAmbiente": row[5],
+            "notaPreco": row[6]
+        }
+        estabelecimentos.append(estabelecimento)
+    
+    return estabelecimentos

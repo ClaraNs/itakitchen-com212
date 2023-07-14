@@ -260,7 +260,7 @@ CREATE TRIGGER tr_atualiza_media
     EXECUTE FUNCTION calcula_media();
 
 -- Consultar
-/*SELECT * FROM estabelecimento
+SELECT * FROM estabelecimento
 SELECT * FROM avaliacao
 SELECT * FROM horariofuncionamento
 SELECT * FROM cliente
@@ -270,7 +270,7 @@ SELECT e.nome, c.id, c.descricao FROM estabelecimento e JOIN categoria c ON e.id
 
 SELECT (notarefeicao + notaatendimento + notaambiente + notapreco)/4 FROM avaliacao;
 
-INSERT INTO categoria(descricao) VALUES('hamburgueria')
+/*INSERT INTO categoria(descricao) VALUES('hamburgueria')
 DELETE FROM estabelecimento
 DELETE FROM categoria WHERE id = 7
 DELETE FROM endereco

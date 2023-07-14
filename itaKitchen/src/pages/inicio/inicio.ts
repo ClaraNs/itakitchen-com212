@@ -40,6 +40,7 @@ export class InicioPage {
 
   ionViewWillEnter() {
     this.pesquisarEstab = false;
+    this.retornaCategorias();
     if (this.usuario.cpf != undefined) {
       this.clienteOuEstab = 0;
       this.estabelecimentos = [];
@@ -114,7 +115,6 @@ export class InicioPage {
     if (this.filtrar == true) {
       this.filtrar = false;
     } else {
-      this.retornaCategorias();
       this.filtrar = true;
       this.pesquisarEstab = false;
     }

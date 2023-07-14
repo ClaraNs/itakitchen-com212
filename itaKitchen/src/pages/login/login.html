@@ -41,7 +41,7 @@
          [(ngModel)]="conectado" (ngModelChange)="atualizaConectado();"></ion-checkbox>
       </ion-item>
 
-        <p class="texto-laranja">Esqueci minha senha...</p>
+        <p class="texto-laranja" (click)="esqueciSenha()">Esqueci minha senha...</p>
 
       <button ion-button class="btn-login" (click)="fazerLogin();">
         Entrar <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login">

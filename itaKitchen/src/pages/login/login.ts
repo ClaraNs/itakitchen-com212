@@ -4,6 +4,7 @@ import { ShareService } from '../share/share';
 import { InicioPage } from '../inicio/inicio';
 import { CadastroTipoPage } from '../cadastro-tipo/cadastro-tipo';
 import { Storage } from '@ionic/storage';
+import { EsquecerSenhaPage } from '../esquecer-senha/esquecer-senha';
 
 /**
  * Generated class for the LoginPage page.
@@ -55,6 +56,10 @@ export class LoginPage {
 
   cadastro() {
     this.navCtrl.push(CadastroTipoPage, {}, { animate: true })
+  }
+
+  esqueciSenha(){
+    this.navCtrl.push(EsquecerSenhaPage, {}, { animate: true })
   }
 
   fazerLogin() {

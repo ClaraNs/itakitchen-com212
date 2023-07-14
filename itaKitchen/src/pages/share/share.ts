@@ -52,7 +52,7 @@ export class ShareService {
     excluirEstab(idestab) {
         var url = this.inicioURL + 'deletaestabelecimento&id=' + idestab;
         return this.http.delete(url).map(res => res);
-    }   
+    }
 
     editarCliente(idcli, campos, valores) {
         var url = this.inicioURL + 'atualizacliente&id=' + idcli;
@@ -118,7 +118,7 @@ export class ShareService {
         return this.http.get(url).map(res => res);
     }
 
-    cadastrarEstabelecimento(estab){
+    cadastrarEstabelecimento(estab) {
         var url = this.inicioURL + 'criarestabelecimento';
         var body = {
             "email": estab.email,
@@ -155,7 +155,7 @@ export class ShareService {
 
     }
 
-    criarAvaliacao(idusuario, idestab, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco){
+    criarAvaliacao(idusuario, idestab, notarefeicao, descrirefeicao, notaatendimento, descriatendimento, notaambiente, descriambiente, notapreco, descripreco) {
         var url = this.inicioURL + 'criaravaliacao';
         var body = {
             "idcli": idusuario,
@@ -175,17 +175,17 @@ export class ShareService {
 
     }
 
-    retornaAvaliacoesCliente(id){
+    retornaAvaliacoesCliente(id) {
         var url = this.inicioURL + 'avaliacaocliente&id=' + id;
         return this.http.get(url).map(res => res);
     }
 
-    retornaAvaliacoesEstab(id){
+    retornaAvaliacoesEstab(id) {
         var url = this.inicioURL + 'avaliacaoporestab&id=' + id;
         return this.http.get(url).map(res => res);
     }
 
-    retornaEstabelecimentoPorID(id){
+    retornaEstabelecimentoPorID(id) {
         var url = this.inicioURL + 'estabelecimento&id=' + id;
         return this.http.get(url).map(res => res);
     }
@@ -195,34 +195,63 @@ export class ShareService {
         return this.http.delete(url).map(res => res);
     }
 
-    retornaEndereco(id){
+    retornaEndereco(id) {
         var url = this.inicioURL + 'endereco&id=' + id;
         return this.http.get(url).map(res => res);
     }
 
-    retornaHorario(id){
+    retornaHorario(id) {
         var url = this.inicioURL + 'horario&id=' + id;
         return this.http.get(url).map(res => res);
     }
 
-    retornaEstabMaisBemAvaliados(){
+    retornaEstabMaisBemAvaliados() {
         var url = this.inicioURL + 'estabelecimentomaisbemavaliado';
         return this.http.get(url).map(res => res);
     }
 
-    retornaUsuarioMaisAvaliador(){
+    retornaUsuarioMaisAvaliador() {
         var url = this.inicioURL + 'clientesmaisativos';
         return this.http.get(url).map(res => res);
     }
 
-    verificaUsuarioPorEmail(email){
+    verificaUsuarioPorEmail(email) {
         var url = `${this.inicioURL}usuarioporemail&email=${email}`;
         return this.http.get(url).map(res => res);
     }
 
-    filtrarEstabPorCategoria(categoria){
+    filtrarEstabPorCategoria(categoria) {
         var url = `${this.inicioURL}estabelecimentoporcategoria&categoria=${categoria}`;
         return this.http.get(url).map(res => res);
+    }
+
+    enviarEmailSenha(email) {
+        var url = this.inicioURL + 'pedido_recuperacao_senha';
+        var body = {
+            "email": email
+        }
+        return this.http.post(url, body).map(res => res);
+
+    }
+
+    verificaCodigo(email, codigo) {
+        var url = this.inicioURL + 'verifica_codigo';
+        var body = {
+            "token": codigo,
+            "email": email
+        }
+        return this.http.post(url, body).map(res => res);
+
+    }
+
+    resetaSenha(novasenha, email) {
+        var url = this.inicioURL + 'alteracao_senha';
+        var body = {
+            "email": email,
+            "novasenha": novasenha
+        }
+        return this.http.put(url, body).map(res => res);
+
     }
 
 }

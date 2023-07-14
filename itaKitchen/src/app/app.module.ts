@@ -31,6 +31,7 @@ import { InformacoesEstabPage } from '../pages/informacoes-estab/informacoes-est
 import { VerAvaliacaoPage } from '../pages/ver-avaliacao/ver-avaliacao';
 import { EstabAvaliacoesPage } from '../pages/estab-avaliacoes/estab-avaliacoes';
 import { RelatoriosPage } from '../pages/relatorios/relatorios';
+import { EsquecerSenhaPage } from '../pages/esquecer-senha/esquecer-senha';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { RelatoriosPage } from '../pages/relatorios/relatorios';
     InformacoesEstabPage,
     VerAvaliacaoPage,
     EstabAvaliacoesPage,
-    RelatoriosPage
+    RelatoriosPage,
+    EsquecerSenhaPage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,8 @@ import { RelatoriosPage } from '../pages/relatorios/relatorios';
     InformacoesEstabPage,
     VerAvaliacaoPage,
     EstabAvaliacoesPage,
-    RelatoriosPage
+    RelatoriosPage,
+    EsquecerSenhaPage
   ],
   providers: [
     StatusBar,

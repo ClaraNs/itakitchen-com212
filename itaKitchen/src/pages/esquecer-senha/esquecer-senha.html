@@ -1,0 +1,67 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="home-header">
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button navPop class="bt-voltar">
+        <img src="assets/imgs/icons/voltar.png" alt="Voltar" class="icon-bt-voltar">
+     </button>
+    </ion-buttons>
+    <ion-title>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <section>
+
+    <div *ngIf="emailEnviado == false">
+      <h2>Esqueceu a senha? Insira o e-mail da conta que deseja recuperar.</h2>
+
+      <ion-item class="input">
+        <ion-label color="primary" hidden>E-mail</ion-label>
+        <ion-input placeholder="E-mail" type="email" [(ngModel)]="email" name="email"></ion-input>
+      </ion-item>
+
+      <button ion-button class="btn-login" (click)="continuar();">
+        Enviar Código <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login icon-bt-email">
+      </button>
+     
+
+    </div>
+
+    <div *ngIf="codigoVerificado == false && emailEnviado == true">
+      <h2>Foi enviado um código para {{email}} para redefinição de senha.</h2>
+
+      <ion-item class="input">
+        <ion-label color="primary" hidden>Código</ion-label>
+        <ion-input placeholder="Código de verificação:" type="text" [(ngModel)]="codigo" name="codigo" [brmasker]="{mask:'000000', len:7}"></ion-input>
+      </ion-item>
+
+      <button ion-button class="btn-login" (click)="verificarCodigo();">
+        Verificar código <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login icon-bt-codigo">
+      </button>      
+
+    </div>
+
+    <div *ngIf="codigoVerificado == true">
+      <h2>Insira sua nova senha.</h2>
+
+      <ion-item class="input">
+        <ion-label color="primary" hidden>Nova senha:</ion-label>
+        <ion-input placeholder="Nova senha:" type="password" [(ngModel)]="novasenha" name="novasenha"></ion-input>
+      </ion-item>
+
+      <button ion-button class="btn-login" (click)="resetarSenha();">
+        Alterar senha <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login icon-bt-senha">
+      </button>
+      
+
+    </div>
+
+  </section>
+</ion-content>

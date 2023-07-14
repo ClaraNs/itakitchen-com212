@@ -21,35 +21,35 @@ Psycopg2
 
 Linha de comando para instalar python3
 
->$ sudo apt install python3
+>sudo apt install python3
 
 Linha de comando para instalar NVM
 
->$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 Linha de comando para instalar node 14.18.1
 
->$ nvm install 14.18.1
+>nvm install 14.18.1
 
 Linha de comando para instalar o Ionic 3.20.0
 
->$ npm install -g ionic@3.20.0
+>npm install -g ionic@3.20.0
 
 Linha de comando para instalar o pip
 
->$ sudo apt install python3-pip
+>sudo apt install python3-pip
 
 Linha de comando para instalar o fastapi
 
->$ pip install fastapi
+>pip install fastapi
 
 Linha de comando para instalar o uvicorn
 
->$ pip install uvicorn
+>pip install uvicorn
 
 Linha de comando para instalar o psycopg2
 
->$ pip install psycopg2
+>pip install psycopg2
 
 
 # Preparação do ambiente no Windows

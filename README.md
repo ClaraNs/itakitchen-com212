@@ -104,7 +104,7 @@ Linha de comando para instalar o psycopg2
 
 >pip install psycopg2
 
-<h3>Iniciando Proejto no Linux</h3>
+<h3>Iniciando Projeto no Linux</h3>
 
 Inicie o banco de dados e corrija em webservice.py a senha de acesso do PostgreSQL
 

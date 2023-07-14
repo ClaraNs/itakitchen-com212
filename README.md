@@ -62,8 +62,11 @@
 
 # ⚡ Demonstração
 
-# 🗝️ Acesso ao Projeto
+Uma demonstração do webapp em funcionamento:
 
+![2023-07-14-13-42-00](https://github.com/ClaraNs/itakitchen-com212/assets/107441152/4a621af9-d768-446c-b950-3dc2045a3879)
+
+# 🗝️ Acesso ao Projeto
 
 <h3>Preparação do Ambiente no Linux</h3>
 
@@ -171,6 +174,30 @@ Para rodar a api:
 
 # 🔧 Tecnologias Utilizadas
 
+- *PostgreSQL 12:* Banco de dados relacional utilizado para armazenar os dados do projeto.
+
+- *Python 3:* Linguagem de programação utilizada para desenvolver o webservice.
+
+- *FastAPI:* Framework web em Python utilizado para criar o webservice, oferecendo uma maneira rápida e eficiente de construir APIs.
+
+- *Psycopg2:* Biblioteca Python utilizada para conectar o aplicativo Python ao banco de dados PostgreSQL.
+
+- *NVM:* Gerenciador de versões do Node.js que permite a instalação e gerenciamento de diferentes versões do Node.js em um único ambiente.
+
+- *Node 14.18.1:* Ambiente de tempo de execução JavaScript usado para desenvolver aplicativos do lado do servidor e gerenciar pacotes usando o npm.
+
+- *Ionic 3.20.0:* Framework de desenvolvimento de aplicativos móveis multiplataforma que utiliza tecnologias web, como HTML, CSS e JavaScript, para criar aplicativos para dispositivos iOS e Android.
+
+- *Angular 5.2.11:* Angular é um framework de desenvolvimento web de código aberto mantido pelo Google, usado para construir aplicativos web robustos e escaláveis com JavaScript e TypeScript.
+
+- *Uvicorn:* Servidor ASGI de alto desempenho, utilizado para implantar o webservice desenvolvido em Python.
+
 # ☕ Pessoas Desenvolvedoras do Projeto
 
+A equipe de desnvolvimento foi composta por quatro pessoas:
+
+- [Ádrian de Oliveira Castello Pereira](https://github.com/AdrianCastelloP): desenvolveu funcionalidades do _webservice_.
+- [Amanda Klein](https://github.com/amandaklein-kd): responsável pela interface.
+- [Ana Clara Nascimento dos Santos](https://github.com/ClaraNs): responsável pelo banco de dados.
+- [Diogo Conceição Nandas](https://github.com/DiogoCNandes): desenvolveu funcionalidades do _webservice_.
 

@@ -1,25 +1,53 @@
+<h1 align="center">
+  <img src="https://github.com/ClaraNs/itakitchen-com212/assets/107441152/2a5d98df-9a33-48bf-a1ba-a439bfbf7ed7" alt="ItaKitchen" />
+</h1>
+
 <p align="center">
-  <img src="itaKitchen/src/assets/imgs/logo-nome-e-texto-lado.svg" alt="Logo do projeto" />
+  <a href="https://www.postgresql.org/">
+    <img src="http://img.shields.io/static/v1?label=PostgreSQL&message=12&color=blue&style=for-the-badge&logo=postgresql"/>
+  </a>
+  <a href="https://www.python.org/">
+    <img src="http://img.shields.io/static/v1?label=Pyhton&message=3&color=green&style=for-the-badge&logo=python"/>
+  </a>
+  <a href="https://github.com/nvm-sh/nvm">
+    <img src="http://img.shields.io/static/v1?label=NVM&message=Latest&color=yellow&style=for-the-badge&logo=nvm"/>
+  </a>
+  <a href="https://nodejs.org/">
+    <img src="http://img.shields.io/static/v1?label=Node.js&message=14.18.1&color=green&style=for-the-badge&logo=node.js"/>
+  </a>
+  <a href="https://ionicframework.com/">
+    <img src="http://img.shields.io/static/v1?label=Ionic&message=3.20.0&color=2D9CDB&style=for-the-badge&logo=ionic"/>
+  </a>
+  <a href="https://www.uvicorn.org/">
+    <img src="http://img.shields.io/static/v1?label=Uvicorn&message=Latest&color=pink&style=for-the-badge&logo=uvicorn"/>
+  </a>
+  <a href="https://www.psycopg.org/">
+    <img src="http://img.shields.io/static/v1?label=Psycopg2&message=Latest&color=blue&style=for-the-badge&logo=psycopg2"/>
+  </a>
+  <a href="https://code.visualstudio.com/">
+    <img src="https://img.shields.io/badge/Visual%20Studio%20Code-1.80.0-007ACC?style=for-the-badge&logo=visual-studio-code" alt="Visual Studio Code">
+  </a>
+  <a href="https://angularjs.org/">
+    <img src="https://img.shields.io/badge/Angular-5.2.11-red?style=for-the-badge&logo=angular" alt="AngularJS">
+  </a>
 </p>
 
-# ItaKitchen
-Sistema de avaliação de restaurantes de Itajubá.
+<p align="center">
+  O ItaKitchen é um sistema de avaliação e revisão de restaurantes localizados no município de Itajubá. O objetivo do projeto é fornecer aos usuários uma plataforma para escrever avaliações completas sobre estabelecimentos de alimentação, abrangendo diferentes aspectos, como ambiente, comida, atendimento e preço. O sistema visa ajudar os moradores locais, estudantes universitários e repúblicas a explorar e tomar decisões sobre as opções de refeições disponíveis em Itajubá.
+</p>
 
-Recursos necessários:
+# ✔️ Status de Desenvolvimento
+<img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge"/>
 
-Postgresql 12
+# ⚙️ Funcionalidades Principais
 
-Python 3
+- Cadastro de Estabelecimentos: Os proprietários de restaurantes podem se cadastrar no sistema para terem seus estabelecimentos avaliados pelos usuários.
 
-NVM
+- Cadastro de Clientes: Os usuários podem criar contas no sistema para se tornarem clientes e terem acesso à funcionalidade de avaliação.
 
-Node 14.18.1
+- Avaliação de Estabelecimentos: Os clientes podem avaliar os estabelecimentos cadastrados, fornecendo feedback sobre a comida, o ambiente, o atendimento e o preço.
 
-Ionic 3.20.0
-
-Uvicorn
-
-Psycopg2
+- Pesquisa e Visualização de Avaliações: Os usuários podem pesquisar e visualizar avaliações de estabelecimentos específicos, ajudando-os a tomar decisões informadas sobre onde comer.
 
 # Preparação do ambiente no Linux
 

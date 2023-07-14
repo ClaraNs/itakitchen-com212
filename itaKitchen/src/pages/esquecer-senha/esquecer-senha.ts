@@ -29,13 +29,14 @@ export class EsquecerSenhaPage {
     if (this.email != null) {
       if (this.email.includes('@') && this.email.split('@')[1] != '') {
         this.share.enviarEmailSenha(this.email).subscribe((data: any) => {
+          console.log(data);
           if (data == 1) {
             let toast = this.toastCtrl.create({
               message: "E-mail enviado com sucesso!",
               duration: 2000
             });
             toast.present();
-            this.emailEnviado == true;
+            this.emailEnviado = true;
           } else {
             let toast = this.toastCtrl.create({
               message: "Algo deu errado...",
@@ -60,28 +61,9 @@ export class EsquecerSenhaPage {
     }
   }
 
-  verificarCodigo() {
-    this.share.verificaCodigo(this.email, this.codigo.replace(" ", "")).subscribe((data: any) => {
-      if (data == 1) {
-        let toast = this.toastCtrl.create({
-          message: "Código verificado!",
-          duration: 2000
-        });
-        toast.present();
-        this.codigoVerificado = true;
-      } else {
-        let toast = this.toastCtrl.create({
-          message: "Código inválido.",
-          duration: 2000
-        });
-        toast.present();
-      }
-    });
-
-  }
 
   resetarSenha() {
-    this.share.resetaSenha(this.novasenha, this.email).subscribe((data: any) => {
+    this.share.resetaSenha(this.novasenha, this.email, this.codigo).subscribe((data: any) => {
       if (data == 1) {
         let toast = this.toastCtrl.create({
           message: "Senha alterada com sucesso!",
@@ -91,7 +73,7 @@ export class EsquecerSenhaPage {
         this.navCtrl.pop();
       } else {
         let toast = this.toastCtrl.create({
-          message: "Algo deu errado...",
+          message: "Token inválido.",
           duration: 2000
         });
         toast.present();

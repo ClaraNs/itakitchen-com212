@@ -34,24 +34,15 @@
 
     </div>
 
-    <div *ngIf="codigoVerificado == false && emailEnviado == true">
-      <h2>Foi enviado um código para {{email}} para redefinição de senha.</h2>
+    <div *ngIf="emailEnviado == true">
+      <h2>Foi enviado um código para {{email}} para redefinição de senha. Por favo, insira o código e digite a nova senha.</h2>
 
       <ion-item class="input">
         <ion-label color="primary" hidden>Código</ion-label>
         <ion-input placeholder="Código de verificação:" type="text" [(ngModel)]="codigo" name="codigo" [brmasker]="{mask:'000000', len:7}"></ion-input>
-      </ion-item>
+      </ion-item>    
 
-      <button ion-button class="btn-login" (click)="verificarCodigo();">
-        Verificar código <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login icon-bt-codigo">
-      </button>      
-
-    </div>
-
-    <div *ngIf="codigoVerificado == true">
-      <h2>Insira sua nova senha.</h2>
-
-      <ion-item class="input">
+    <ion-item class="input">
         <ion-label color="primary" hidden>Nova senha:</ion-label>
         <ion-input placeholder="Nova senha:" type="password" [(ngModel)]="novasenha" name="novasenha"></ion-input>
       </ion-item>
@@ -59,7 +50,6 @@
       <button ion-button class="btn-login" (click)="resetarSenha();">
         Alterar senha <img src="assets/imgs/icons/setas-duplas.png" alt="Ícone de avançar." class="icon-btn-login icon-bt-senha">
       </button>
-      
 
     </div>
 

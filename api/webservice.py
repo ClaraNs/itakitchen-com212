@@ -857,14 +857,16 @@ def reset_password_request(item: dict):
     
     if result:
         enviar_email(item["email"], token)
-        return '1'
+        return 1
     else:
         return 0
     
-    
-#Verifica código
-@app.post("/verifica_codigo")
-def reset_password_request(item: dict):
+
+
+
+@app.put("/alteracao_senha")
+def resetar_senha(item: dict):
+    # Verifica se o token é válido
     emailComToken = retByValue( "SELECT email FROM ("
                          "SELECT email FROM cliente WHERE token = %s "
                          "UNION ALL "
@@ -873,14 +875,6 @@ def reset_password_request(item: dict):
     
     if emailComToken == [] or emailComToken[0][0] != item["email"]:
         return 0
-    else:
-        return 1
-
-
-@app.post("/alteracao_senha")
-def resetar_senha(item: dict):
-    # Verifica se o token é válido
-
     presencaCPF = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
 
     # Redefine a senha do usuário

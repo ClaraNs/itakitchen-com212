@@ -234,21 +234,12 @@ export class ShareService {
 
     }
 
-    verificaCodigo(email, codigo) {
-        var url = this.inicioURL + 'verifica_codigo';
-        var body = {
-            "token": codigo,
-            "email": email
-        }
-        return this.http.post(url, body).map(res => res);
-
-    }
-
-    resetaSenha(novasenha, email) {
+    resetaSenha(novasenha, email, codigo) {
         var url = this.inicioURL + 'alteracao_senha';
         var body = {
             "email": email,
-            "novasenha": novasenha
+            "senha": novasenha,
+            "token": codigo
         }
         return this.http.put(url, body).map(res => res);
 

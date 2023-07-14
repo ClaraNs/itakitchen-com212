@@ -848,8 +848,10 @@ def reset_password_request(item: dict):
     usuario = item["email"]
     # Gera token de redefinição de senha
     token = gerar_token(item["email"])
-    tipoUsuario = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
-    if tipoUsuario:
+    tipoUsuario = verificaTipo(item["email"])
+    if(tipoUsuario == 0):
+        return 0
+    if tipoUsuario == "cliente":
             retorno = alter("UPDATE cliente SET token = %s WHERE email = %s",(token, usuario))
     else:
             retorno = alter("UPDATE estabelecimento SET token = %s WHERE email = %s",(token, usuario))
@@ -862,6 +864,16 @@ def reset_password_request(item: dict):
         return 0
     
 
+def verificaTipo(email):
+    tipo = retByValue( "SELECT CASE "+
+        "WHEN EXISTS (SELECT 1 FROM cliente WHERE email = %s) THEN 'cliente' "+
+        "WHEN EXISTS (SELECT 1 FROM estabelecimento WHERE email = %s) THEN 'estabelecimento'"+
+        "ELSE 'Nenhuma tabela' "+
+        "END AS nome_tabela;", (email, email))
+    if(tipo[0][0] == 'cliente' or tipo[0][0] == 'estabelecimento'):
+        return tipo[0][0]
+    else:
+        return 0
 
 
 @app.put("/alteracao_senha")
@@ -875,10 +887,10 @@ def resetar_senha(item: dict):
     
     if emailComToken == [] or emailComToken[0][0] != item["email"]:
         return 0
-    presencaCPF = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
-
-    # Redefine a senha do usuário
-    if presencaCPF:
+    tipoUsuario = verificaTipo(item["email"])
+    if(tipoUsuario == 0):
+        return 0
+    if tipoUsuario == "cliente":
         retorno = alter("UPDATE cliente SET senha = crypt(%s, gen_salt('bf')) WHERE email = %s",(item["senha"], item["email"]))
     else:
         retorno = alter("UPDATE estabelecimento SET senha = crypt(%s, gen_salt('bf')) WHERE email= %s",( item["senha"], item["email"]))

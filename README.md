@@ -39,6 +39,17 @@
 # ✔️ Status de Desenvolvimento
 <img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge"/>
 
+
+# :pushpin: Índice
+
+* [Funcionalidades Principais](#funcionalidades-principais)
+* [Demonstração](#demonstracao)
+* [Acesso ao Projeto](#acesso-ao-projeto)
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
+* [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras)
+
+
+
 # ⚙️ Funcionalidades Principais
 
 - Cadastro de Estabelecimentos: Os proprietários de restaurantes podem se cadastrar no sistema para terem seus estabelecimentos avaliados pelos usuários.
@@ -49,7 +60,7 @@
 
 - Pesquisa e Visualização de Avaliações: Os usuários podem pesquisar e visualizar avaliações de estabelecimentos específicos, ajudando-os a tomar decisões informadas sobre onde comer.
 
-# Preparação do ambiente no Linux
+# Preparação do Ambiente no Linux
 
 Linha de comando para instalar python3
 
@@ -96,7 +107,7 @@ Abra um terminal na pasta itaKitchen e digite:
 
 Feito isso a página deve carregar e o projeto, navegável.
 
-# Preparação do ambiente no Windows
+# Preparação do Ambiente no Windows
 
 Para instalar o PostgreSQL 12 e o PgAdmin acesse o link abaixo e realize a instalação. (Obs: Guardar a senha que colocar no installer pois utilizará ela futuramente)
 
@@ -134,19 +145,20 @@ Para instalar o Psycopg2 insira o comando abaixo.
 
 >pip install psycopg2
 
- # Iniciando o projeto no Windows:
+ # Iniciando o Projeto no Windows:
 
-Passo 1:Para a execução da aplicação acesse os arquivos do projeto, e na pasta “api” acesse o arquivo “webservice.py” e na linha 24 modifique o password para a senha utilizada na instalação do PostgreSQL e salve o arquivo.
+Passo 1: Para a execução da aplicação acesse os arquivos do projeto, e na pasta “api” acesse o arquivo “webservice.py” e na linha 24 modifique o password para a senha utilizada na instalação do PostgreSQL e salve o arquivo.
 
-Passo 2:Execute o PgAdmin, clique no botão “Servers”, no botão “PostgreSQL 12” e insira a senha usada para instalar o PostgreSQL. Clique no botão “Databases”, no botão “Object”, “Create”, “Database” e na janela que abrir e no campo “database” insira o nome “itakitchen” e então no botão “save”.
+Passo 2: Execute o PgAdmin, clique no botão “Servers”, no botão “PostgreSQL 12” e insira a senha usada para instalar o PostgreSQL. Clique no botão “Databases”, no botão “Object”, “Create”, “Database” e na janela que abrir e no campo “database” insira o nome “itakitchen” e então no botão “save”.
 
-Passo3:Clique com o botão direito no nome do banco, clique em restore e na janela que abrir no filename localize o arquivo "backup.sql" na pasta "banco de dados" do projeto e clique em restore. 
+Passo3: Clique com o botão direito no nome do banco, clique em restore e na janela que abrir no filename localize o arquivo "backup.sql" na pasta "banco de dados" do projeto e clique em restore. 
 
-Passo 3:Com o banco criado, clique no botão “PSQL Tool” e insira o comando: CREATE EXTENSION pgcrypto;. O banco está iniciado.
+Passo 3: Com o banco criado, clique no botão “PSQL Tool” e insira o comando: CREATE EXTENSION pgcrypto;. O banco está iniciado.
 
-Passo 4:Abra um Prompt de Comando na pasta “api” do projeto e insira o comando >python -m uvicorn webservice:app --reload. Esse comando inicia a API.
+Passo 4: Abra um Prompt de Comando na pasta “api” do projeto e insira o comando >python -m uvicorn webservice:app --reload. Esse comando inicia a API.
 
-Passo 5:Abra um Prompt de Comando na pasta “itakitchen” do projeto e insira o comando >ionic serve, pressione enter e logo em seguida digite “y” para baixar as dependências do projeto. Isso inicia a aplicação no navegador e está pronta para uso.
+Passo 5: Abra um Prompt de Comando na pasta “itakitchen” do projeto e insira o comando >ionic serve, pressione enter e logo em seguida digite “y” para baixar as dependências do projeto. Isso inicia a aplicação no navegador e está pronta para uso.
 
 
-Para rodar a api: python -m uvicorn webservice:app --reload
+Para rodar a api: 
+> python -m uvicorn webservice:app --reload

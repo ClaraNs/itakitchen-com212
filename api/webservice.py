@@ -295,7 +295,7 @@ def retornaUsuarioEmail(email):
                          ") AS combined", (email, email))
 
     print(retorno)
-    return retorno
+    return retorno[0][0]
 
 
 
@@ -347,6 +347,7 @@ def retornaEstabelecimento():
         result.append(model.Estabelecimento(id, nome, cnpj, email, contato, str(fotocerta), descricao, idendereco, idhorariofunc, idcategoria))
     
     return result
+
 
 @app.get("/estabelecimento&id={id}")
 def retornaEstabelecimentoPorId(id):
@@ -453,7 +454,7 @@ def estabelecimentoPorCategoria(categoria):
 
     retorno = retByValue("SELECT e.id, e.nome, e.cnpj, e.email, e.contato, e.foto, e.descricao, " +
                   "e.idendereco, e.idhorariofunc, e.idcategoria FROM estabelecimento as e " +  
-                  "JOIN categoria AS c ON e.idcategoria = c.id WHERE c.descricao = %s", (categoria,))
+                  "JOIN categoria AS c ON e.idcategoria = c.id WHERE c.id = %s", (categoria,))
 
     result = []
     for idn, nome, cnpj, email, contato, foto, descricao, idendereco, idhorariofunc, idcategoria in retorno:

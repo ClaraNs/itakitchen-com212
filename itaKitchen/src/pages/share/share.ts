@@ -214,4 +214,15 @@ export class ShareService {
         var url = this.inicioURL + 'clientesmaisativos';
         return this.http.get(url).map(res => res);
     }
+
+    verificaUsuarioPorEmail(email){
+        var url = `${this.inicioURL}usuarioporemail&email=${email}`;
+        return this.http.get(url).map(res => res);
+    }
+
+    filtrarEstabPorCategoria(categoria){
+        var url = `${this.inicioURL}estabelecimentoporcategoria&categoria=${categoria}`;
+        return this.http.get(url).map(res => res);
+    }
+
 }

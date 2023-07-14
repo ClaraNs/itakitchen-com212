@@ -26,39 +26,59 @@
 
   <section *ngIf="clienteOuEstab == 0">
 
-  
+
     <h1 class="saudacao texto-marrom">Olá, {{usuario.nome}}!</h1>
 
     <ion-row class="bts-inicio">
-      <button col-4 ion-button class="bt-inicio filtrar marrom">
+      <button col-4 ion-button class="bt-inicio filtrar marrom" (click)="filtrarBt()">
         Filtrar
         <img src="assets/imgs/icons/filtro.png" class="icon-bt-inicio filtro" alt="Ícone de filtro.">
       </button>
-      <button col-7 ion-button class="bt-inicio laranja">
+      <button col-6 ion-button class="bt-inicio laranja" (click)="ordenarBt()">
         Ordernar por
         <img src="assets/imgs/icons/ordenar.png" class="icon-bt-inicio" alt="Ícone de ordenar.">
       </button>
+      <button col-1 ion-button class="bt-pesquisa" (click)="mostraPesquisar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
     </ion-row>
-    
+
+    <ion-row *ngIf="pesquisarEstab == true">
+      <ion-searchbar [(ngModel)]="pesquisa" [showCancelButton]="shouldShowCancel" (ionInput)="pesquisaNome();"
+      (ionCancel)="pesquisa = null;" class="barra-pesquisa" placeholder="Buscar um estabelecimento...">
+    </ion-searchbar>
+    </ion-row>
+
+    <ion-row *ngIf="filtrar == true">
+      <ion-item class="input">
+        <ion-label hidden>Selecione a categoria:</ion-label>
+        <ion-select placeholder="Categoria" [(ngModel)]="categoria" name="categoria" class="filtro"
+          (ngModelChange)="filtrarPorCategoria();">
+          <ion-option value="0">Mostrar todas as categorias</ion-option>
+          <ion-option *ngFor="let cat of categorias" value="{{ cat.id }}">{{ cat.descri }}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+
     <div class="estabelecimentos">
-    <ion-row *ngFor="let estab of estabelecimentos" class="card-estab" (click)="verEstab(estab.id)">
-      <ion-col col-3>
-        <img [src]="estab.fotourl" safe class="img-estab">
-      </ion-col>
-      <ion-col col-9>
-        <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
-        <ion-row>
-          <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela">
-          <h5 class="num-perfil num-avaliacao"> {{estab.nota}} <span>•</span> {{estab.numavaliacoes}} avaliações</h5>
-        </ion-row>
+      <ion-row *ngFor="let estab of estabelecimentos" class="card-estab" (click)="verEstab(estab.id)">
+        <ion-col col-3>
+          <img [src]="estab.fotourl" safe class="img-estab">
+        </ion-col>
+        <ion-col col-9>
+          <h2 class="nome-perfil texto-marrom">{{estab.nome}}</h2>
+          <ion-row>
+            <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela">
+            <h5 class="num-perfil num-avaliacao"> {{estab.nota}} <span>•</span> {{estab.numavaliacoes}} avaliações</h5>
+          </ion-row>
 
-      </ion-col>
-    </ion-row>
-  </div>
+        </ion-col>
+      </ion-row>
+    </div>
 
-  <div>
-    
-  </div>
+    <div>
+
+    </div>
     <div *ngIf="estabelecimentos.length == 0 && clienteOuEstab == 0">
       <p class="texto-marrom vazio">Não há estabelecimentos cadastrados no momento.</p>
     </div>
@@ -70,9 +90,9 @@
       <ion-row *ngFor="let aval of avaliacoes" class="card-aval" (click)="verAvaliacao(aval.id);">
         <ion-row class="titulo-aval">
           <img src="assets/imgs/icons/estrela.png" alt="Ícone de estrela." class="estrela-aval">
-            <h5 class="nota texto-marrom">{{aval.media.toFixed(2)}}</h5>
-          <h5 class="texto-marrom nome"> <span>•</span>  {{aval.nomeestab}} </h5> 
-           
+          <h5 class="nota texto-marrom">{{aval.media.toFixed(2)}}</h5>
+          <h5 class="texto-marrom nome"> <span>•</span> {{aval.nomeestab}} </h5>
+
         </ion-row>
         <ion-row class="notas">
           <img src="assets/imgs/icons/refeicao.png" alt="Ícone de refeição." class="icone-nota">
@@ -85,17 +105,20 @@
           {{aval.notapreco.toFixed(1)}}
         </ion-row>
         <ion-row class="descricao" *ngIf="aval.descrirefeicao != null">{{aval.descrirefeicao}}</ion-row>
-        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento != null">
+        <ion-row class="descricao" *ngIf="aval.descrirefeicao == null && aval.descriatendimento != null">
           {{aval.descriatendimento}}</ion-row>
-        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente != null">
+        <ion-row class="descricao"
+          *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente != null">
           {{aval.descriambiente}}</ion-row>
-        <ion-row class="descricao"  *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco != null" >
+        <ion-row class="descricao"
+          *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco != null">
           {{aval.descripreco}}</ion-row>
-          <ion-row class="descricao" *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco == null" >
-            Sem descrições...</ion-row>
-        
+        <ion-row class="descricao"
+          *ngIf="aval.descrirefeicao == null && aval.descriatendimento == null && aval.descriambiente == null && aval.descripreco == null">
+          Sem descrições...</ion-row>
+
       </ion-row>
-  
+
     </div>
     <div *ngIf="avaliacoes.length == 0">
       <p class="texto-marrom vazio">Não há avaliações para seu estabelecimento ainda.</p>

@@ -5,7 +5,29 @@ page-inicio {
         border-radius: 40px;
         max-width: 90%;
         padding: 20px 0;
-        font-size: 1.1em;
+        font-size: 1em;
+    }
+
+    .bt-pesquisa {
+        margin: 0;
+        padding: 12px 0 0 0;
+        color: #321313;
+        background-color: transparent;
+        font-size: 1.5em;
+        margin-left: 10px;
+    }
+
+    .select-md {
+        padding: 10px 8px 12px 10px;
+    }
+
+    ion-select{
+        max-width: 90% !important;
+    }
+
+    ion-searchbar.barra-pesquisa, ion-item.input {
+        margin-bottom: 0;
+        width: 98%;
     }
 
     .bts-inicio {
@@ -18,7 +40,7 @@ page-inicio {
     }
 
     .bt-inicio.filtrar {
-        margin-right: 20px;
+        margin-right: 10px;
     }
 
     img.icon-bt-inicio {
@@ -108,14 +130,14 @@ page-inicio {
         }
     }
 
-    ion-row.notas{
+    ion-row.notas {
         margin-top: 10px;
         color: #484848;
         align-items: center;
         font-weight: bold;
     }
 
-    ion-row.titulo-aval{
+    ion-row.titulo-aval {
         align-items: center;
         justify-content: center;
     }
@@ -124,7 +146,8 @@ page-inicio {
         width: 8%;
         margin: 0 4%;
     }
-    .estrela-aval{
+
+    .estrela-aval {
         width: 20px;
         height: 20px;
         margin: -2px 0 1px 0%;
@@ -132,14 +155,14 @@ page-inicio {
 
     h5.nota {
         margin: 0 0 0 8px;
-        
+
     }
 
     h5.nome {
         margin: 0;
     }
 
-    
+
 }
 
 
@@ -227,5 +250,5 @@ h5.num-avaliacao {
     }
 
 
-    
+
 }

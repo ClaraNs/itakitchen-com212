@@ -31,6 +31,9 @@ export class EstabAvaliacoesPage {
     this.idestab = this.navParams.get('idestab');
     this.usuario = this.navParams.get("usuario");
     this.carregarEstabelecimento();
+  }
+
+  ionViewWillEnter() {
     this.carregarAvaliacoes();
   }
 

@@ -83,6 +83,18 @@ Linha de comando para instalar o psycopg2
 
 >pip install psycopg2
 
+# Iniciando o projeto no Linux:
+Inicie o banco de dados e corrija em webservice.py a senha de acesso do PostgreSQL
+
+Abra um terminal na pasta api e digite a seguinte linha para inciar o webservice(digite python3 se python não funcionar)
+
+>python -m uvicorn webservice:app --reload
+
+Abra um terminal na pasta itaKitchen e digite:
+
+>ionic serve
+
+Feito isso a página deve carregar e o projeto, navegável.
 
 # Preparação do ambiente no Windows
 

@@ -844,7 +844,7 @@ def retornaEstabelecimentosPorCategoria(id: int):
 def reset_password_request(item: dict):
     usuariotrue = retornaUsuarioEmail(item["email"])
     if usuariotrue == 0:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+        return 0
     usuario = item["email"]
     # Gera token de redefinição de senha
     token = gerar_token(item["email"])
@@ -857,23 +857,29 @@ def reset_password_request(item: dict):
     
     if result:
         enviar_email(item["email"], token)
-        return {"message": "Token salvo e email enviado"}
+        return '1'
     else:
-        raise HTTPException(status_code=500, detail="Erro ao salvar token")
-
-
-
-@app.post("/alteracao_senha")
-def resetar_senha(item: dict):
-    # Verifica se o token é válido
-
+        return 0
+    
+    
+#Verifica código
+@app.post("/verifica_codigo")
+def reset_password_request(item: dict):
     emailComToken = retByValue( "SELECT email FROM ("
                          "SELECT email FROM cliente WHERE token = %s "
                          "UNION ALL "
                          "SELECT email FROM estabelecimento WHERE token = %s "
                          ") AS combined", (item["token"], item["token"]))
+    
     if emailComToken[0][0] != item["email"]:
-        raise HTTPException(status_code=400, detail=f"Token inválido ou expirado. emailComToken: {emailComToken[0]}, item['email']: {item['email']}")
+        return 0
+    else:
+        return 1
+
+
+@app.post("/alteracao_senha")
+def resetar_senha(item: dict):
+    # Verifica se o token é válido
 
     presencaCPF = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
 
@@ -885,6 +891,6 @@ def resetar_senha(item: dict):
     result = retByValue(retorno)
 
     if result:
-        return {"message": "Senha redefinida com sucesso"}
+        return 1
     else:
-        raise HTTPException(status_code=500, detail="Erro ao redefinir senha")
+        return 0

@@ -848,8 +848,8 @@ def reset_password_request(item: dict):
     usuario = item["email"]
     # Gera token de redefinição de senha
     token = gerar_token(item["email"])
-    tipoUsuario = hasattr(item, "cnpj")
-    if tipoUsuario is False:
+    tipoUsuario = retByValue(""" SELECT column_name FROM information_schema.columns WHERE table_name='cliente' AND column_name='cpf'; """)
+    if tipoUsuario:
             retorno = alter("UPDATE cliente SET token = %s WHERE email = %s",(token, usuario))
     else:
             retorno = alter("UPDATE estabelecimento SET token = %s WHERE email = %s",(token, usuario))
@@ -871,7 +871,7 @@ def reset_password_request(item: dict):
                          "SELECT email FROM estabelecimento WHERE token = %s "
                          ") AS combined", (item["token"], item["token"]))
     
-    if emailComToken[0][0] != item["email"]:
+    if emailComToken == [] or emailComToken[0][0] != item["email"]:
         return 0
     else:
         return 1
